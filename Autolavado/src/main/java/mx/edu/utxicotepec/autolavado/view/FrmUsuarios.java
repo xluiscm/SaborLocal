@@ -721,7 +721,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         txtContra.setText("");
         txtaño.setText("");
         txtmes.setText("");
-        
+
     }
 
     public void eliminarusuario() {
