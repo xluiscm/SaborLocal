@@ -4,10 +4,19 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
+import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
+import mx.edu.utxicotepec.saborlocal.Controllers.UsuriosController;
 import mx.edu.utxicotepec.saborlocal.DAOS.ClientesModel;
+import mx.edu.utxicotepec.saborlocal.DAOS.UsuariosModel;
 
 /**
  *
@@ -17,13 +26,17 @@ public class FrmClientes extends javax.swing.JFrame {
 
     private DefaultTableModel modeloTabla;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmClientes.class.getName());
+    private int idClienteSeleccionado;
+    private int idCliente = 0;
 
     public FrmClientes() {
-        modeloTabla = new DefaultTableModel (new Object[]{"idCliente", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Direccion", "Genero",
-            "FechaDeNacimiento", "Telefono", "Edad", "idUsuario"},0);
-        
+
+        modeloTabla = new DefaultTableModel(new Object[]{"idCliente", "Nombre", "ApellidoPaterno", "ApellidoMaterno", "Direccion", "Genero",
+            "FechaDeNacimiento", "Telefono", "Edad", "idUsuario"}, 0);
+
         initComponents();
         cargarTablaClientes();
+        tblclientes.setModel(modeloTabla);
     }
 
     /**
@@ -42,6 +55,10 @@ public class FrmClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblclientes = new javax.swing.JTable();
+        btnbuscar = new javax.swing.JButton();
+        btnmodificar = new javax.swing.JButton();
+        btnguardar = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,8 +117,44 @@ public class FrmClientes extends javax.swing.JFrame {
         tblclientes.setBackground(new java.awt.Color(255, 255, 255));
         tblclientes.setForeground(new java.awt.Color(0, 0, 0));
         tblclientes.setModel(modeloTabla);
-        tblclientes.setPreferredSize(new java.awt.Dimension(1340, 600));
+        tblclientes.setPreferredSize(new java.awt.Dimension(1200, 400));
         jScrollPane1.setViewportView(tblclientes);
+
+        btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\busqueda.png")); // NOI18N
+        btnbuscar.setOpaque(true);
+        btnbuscar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
+        btnmodificar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Editar.png")); // NOI18N
+        btnmodificar.setOpaque(true);
+        btnmodificar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarActionPerformed(evt);
+            }
+        });
+
+        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\guardar.png")); // NOI18N
+        btnguardar.setOpaque(true);
+        btnguardar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
+
+        btneliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Eliminar.png")); // NOI18N
+        btneliminar.setOpaque(true);
+        btneliminar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,17 +164,34 @@ public class FrmClientes extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(73, 73, 73)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134)
+                .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(196, 196, 196)
+                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152)
+                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(240, 240, 240))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133)
+                .addGap(74, 74, 74)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 389, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,6 +219,26 @@ public class FrmClientes extends javax.swing.JFrame {
         frmvendedor.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnatrasActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+        buscarusuario();
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        // TODO add your handling code here:
+        guardar();
+    }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        // TODO add your handling code here:
+        modificar();
+    }//GEN-LAST:event_btnmodificarActionPerformed
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+    }//GEN-LAST:event_btneliminarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -195,8 +285,159 @@ public class FrmClientes extends javax.swing.JFrame {
         }
     }
 
+    private void buscarusuario() {
+        String termino = JOptionPane.showInputDialog(this, "Ingrese el término a buscar:", "Buscar Cliente", JOptionPane.QUESTION_MESSAGE);
+
+        if (termino != null) {
+            if (!termino.isEmpty()) {
+                List<ClientesModel> resultados = ClientesController.buscarClientesPorTermino(termino);
+
+                if (!resultados.isEmpty()) {
+                    modeloTabla.setRowCount(0); // Limpia la tabla
+                    for (ClientesModel cliente : resultados) {
+                        modeloTabla.addRow(new Object[]{
+                            cliente.getIdCliente(),
+                            cliente.getNombre(),
+                            cliente.getApellidoPaterno(),
+                            cliente.getApellidoMaterno(),
+                            cliente.getDireccion(),
+                            cliente.getGenero(),
+                            cliente.getFecha(),
+                            cliente.getTelefono(),
+                            cliente.getEdad(),
+                            cliente.getIdUsuario()
+                        });
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontraron clientes con el término: " + termino);
+                }
+            } else {
+                // Si el usuario deja el campo vacío, se cargan todos los clientes
+                cargarTablaClientes();
+            }
+        }
+    }
+
+    public void modificar() {
+        int fila = tblclientes.getSelectedRow();
+        if (fila != -1) {
+            try {
+                int idCliente = (int) modeloTabla.getValueAt(fila, 0);
+                String nombre = modeloTabla.getValueAt(fila, 1).toString();
+                String apellidoPaterno = modeloTabla.getValueAt(fila, 2).toString();
+                String apellidoMaterno = modeloTabla.getValueAt(fila, 3).toString();
+                String direccion = modeloTabla.getValueAt(fila, 4).toString();
+                String genero = modeloTabla.getValueAt(fila, 5).toString();
+                String fechaNacimiento = modeloTabla.getValueAt(fila, 6).toString();
+                String telefono = modeloTabla.getValueAt(fila, 7).toString();
+                int edad = Integer.parseInt(modeloTabla.getValueAt(fila, 8).toString());
+                int idUsuario = (int) modeloTabla.getValueAt(fila, 9);
+
+                ClientesModel clienteModificado = new ClientesModel(
+                        idCliente, nombre, apellidoPaterno, apellidoMaterno, direccion, genero,
+                        fechaNacimiento, telefono, edad, idUsuario
+                );
+
+                // Llama al controlador para actualizar la base de datos
+                boolean exito = ClientesController.modificarCliente(clienteModificado);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Cliente modificado exitosamente.");
+                    // Recarga la tabla para reflejar el cambio en la interfaz
+                    cargarTablaClientes();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al modificar el cliente.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Error en el formato de edad.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para modificar.");
+        }
+    }
+
+    public void guardar() {
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            try {
+                int idCliente = (int) modeloTabla.getValueAt(i, 0);
+                String nombre = modeloTabla.getValueAt(i, 1).toString();
+                String apellidoPaterno = modeloTabla.getValueAt(i, 2).toString();
+                String apellidoMaterno = modeloTabla.getValueAt(i, 3).toString();
+                String direccion = modeloTabla.getValueAt(i, 4).toString();
+                String genero = modeloTabla.getValueAt(i, 5).toString();
+                String fechaNacimiento = modeloTabla.getValueAt(i, 6).toString();
+                String telefono = modeloTabla.getValueAt(i, 7).toString();
+                int edad = Integer.parseInt(modeloTabla.getValueAt(i, 8).toString());
+                int idUsuario = (int) modeloTabla.getValueAt(i, 9);
+
+                ClientesModel cliente = new ClientesModel(
+                        idCliente, nombre, apellidoPaterno, apellidoMaterno, direccion, genero,
+                        fechaNacimiento, telefono, edad, idUsuario
+                );
+
+                if (idCliente <= 0) {
+                    // Es un nuevo registro, lo inserta en la base de datos
+                    ClientesController.insertarCliente(cliente);
+                } else {
+                    // Es un registro existente, lo modifica en la base de datos
+                    ClientesController.modificarCliente(cliente);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Error de formato en la fila " + (i + 1));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al procesar la fila " + (i + 1) + ": " + ex.getMessage());
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Todos los cambios han sido guardados.");
+        cargarTablaClientes();
+    }
+
+    public void eliminar() {
+        int fila = tblclientes.getSelectedRow();
+
+        // 1. Verifica si hay una fila seleccionada
+        if (fila != -1) {
+            // 2. Obtiene el ID del cliente de la primera columna
+            int idCliente = (int) modeloTabla.getValueAt(fila, 0);
+            String nombre = modeloTabla.getValueAt(fila, 1).toString();
+
+            // 3. Pide confirmación al usuario para evitar eliminaciones accidentales
+            int confirmacion = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Estás seguro de que deseas eliminar a " + nombre + " con ID: " + idCliente + "?",
+                    "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                try {
+                    // 4. Llama al método del controlador para eliminar de la base de datos
+                    boolean exito = ClientesController.eliminarCliente(idCliente);
+
+                    if (exito) {
+                        JOptionPane.showMessageDialog(this, "Cliente eliminado exitosamente.");
+                        // 5. Recarga la tabla para que se refleje el cambio
+                        cargarTablaClientes();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al eliminar el cliente.");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+                }
+            }
+        } else {
+            // Muestra un mensaje si no hay ninguna fila seleccionada
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras;
+    private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btneliminar;
+    private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnmodificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
@@ -205,4 +446,3 @@ public class FrmClientes extends javax.swing.JFrame {
     private javax.swing.JTable tblclientes;
     // End of variables declaration//GEN-END:variables
 }
-

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import mx.edu.utxicotepec.saborlocal.DAOS.ClientesModel;
 
 /**
@@ -101,5 +102,123 @@ public class ClientesController {
             }
         }
         return idCliente;
+    }
+
+    public static List<ClientesModel> buscarClientesPorTermino(String termino) {
+        List<ClientesModel> clientesEncontrados = new ArrayList<>();
+
+        // La consulta SQL ahora incluye una búsqueda con LIKE en la columna 'idUsuario'.
+        String sql = "SELECT * FROM Clientes WHERE nombre LIKE ? OR apellidoPaterno LIKE ? OR apellidoMaterno LIKE ? OR direccion LIKE ? OR genero LIKE ? OR fechanacimiento LIKE ? OR telefono LIKE ? OR edad LIKE ? OR idUsuario LIKE ?";
+
+        try (Connection conn = Conexion.obtenerConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            String terminoConWildcards = "%" + termino + "%";
+            pstmt.setString(1, terminoConWildcards);
+            pstmt.setString(2, terminoConWildcards);
+            pstmt.setString(3, terminoConWildcards);
+            pstmt.setString(4, terminoConWildcards);
+            pstmt.setString(5, terminoConWildcards);
+            pstmt.setString(6, terminoConWildcards);
+            pstmt.setString(7, terminoConWildcards);
+            pstmt.setString(8, terminoConWildcards);
+            pstmt.setString(9, terminoConWildcards); // Asigna el valor para el 9º parámetro
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    ClientesModel cliente = new ClientesModel(
+                            rs.getInt("idCliente"),
+                            rs.getString("nombre"),
+                            rs.getString("apellidoPaterno"),
+                            rs.getString("apellidoMaterno"),
+                            rs.getString("direccion"),
+                            rs.getString("genero"),
+                            rs.getString("fechanacimiento"),
+                            rs.getString("telefono"),
+                            rs.getInt("edad"),
+                            rs.getInt("idUsuario")
+                    );
+                    clientesEncontrados.add(cliente);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar clientes: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return clientesEncontrados;
+    }
+
+    public static boolean modificarCliente(ClientesModel cliente) {
+        String sql = "UPDATE clientes SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, direccion = ?, "
+                + "genero = ?, fechaNacimiento = ?, telefono = ?, edad = ?, idUsuario = ? "
+                + "WHERE idCliente = ?";
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getApellidoPaterno());
+            ps.setString(3, cliente.getApellidoMaterno());
+            ps.setString(4, cliente.getDireccion());
+            ps.setString(5, cliente.getGenero());
+            ps.setString(6, cliente.getFecha());
+            ps.setString(7, cliente.getTelefono());
+            ps.setInt(8, cliente.getEdad());
+            ps.setInt(9, cliente.getIdUsuario());
+            ps.setInt(10, cliente.getIdCliente());
+
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException ex) {
+            System.err.println("Error al modificar cliente: " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean insertarCliente(ClientesModel cliente) {
+        String sql = "INSERT INTO Clientes (nombre, apellidoPaterno, apellidoMaterno, direccion, genero, fecha, telefono, edad, idUsuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = Conexion.obtenerConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Asigna los valores a los parámetros de la consulta SQL
+            pstmt.setString(1, cliente.getNombre());
+            pstmt.setString(2, cliente.getApellidoPaterno());
+            pstmt.setString(3, cliente.getApellidoMaterno());
+            pstmt.setString(4, cliente.getDireccion());
+            pstmt.setString(5, cliente.getGenero());
+            pstmt.setString(6, cliente.getFecha());
+            pstmt.setString(7, cliente.getTelefono());
+            pstmt.setInt(8, cliente.getEdad());
+            pstmt.setInt(9, cliente.getIdUsuario());
+
+            int filasAfectadas = pstmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al insertar cliente: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static List<ClientesModel> obtenerTodosLosClientes() {
+        List<ClientesModel> clientes = new ArrayList<>();
+        // Lógica para obtener clientes de la base de datos
+        return clientes;
+    }
+
+    public static boolean eliminarCliente(int idCliente) {
+        String sql = "DELETE FROM Clientes WHERE idCliente=?";
+
+        try (Connection conn = Conexion.obtenerConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idCliente);
+
+            int filasAfectadas = pstmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar cliente: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }
