@@ -20,21 +20,21 @@ import mx.edu.utxicotepec.autolavado.model.ServiciosModel;
  */
 public class ServiciosController {
 
-    public static boolean insertarServicios(ServiciosModel rol) {
-        String sql = "INSERT INTO tbi_servicios(nombreServicio, descripcion, precio, estatus)" + "VALUES(?,?,?,?)";
-        try (Connection con = conexionDB.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, rol.getNombreServicio());
-            ps.setString(2, rol.getDescripcion());
-            ps.setString(3, rol.getPrecio());
-            ps.setString(4, rol.getEstatus());
-            ps.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            System.err.println("Error al guardar Servicio" + ex.getMessage());
-            ex.printStackTrace();
-            return false;
+        public static boolean insertarServicios(ServiciosModel rol) {
+            String sql = "INSERT INTO tbi_servicios(nombreServicio, descripcion, precio, estatus)" + "VALUES(?,?,?,?)";
+            try (Connection con = conexionDB.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, rol.getNombreServicio());
+                ps.setString(2, rol.getDescripcion());
+                ps.setString(3, rol.getPrecio());
+                ps.setString(4, rol.getEstatus());
+                ps.executeUpdate();
+                return true;
+            } catch (SQLException ex) {
+                System.err.println("Error al guardar Servicio" + ex.getMessage());
+                ex.printStackTrace();
+                return false;
+            }
         }
-    }
 
     public static List<ServiciosModel> mostrarTodos() {
         var lista = new ArrayList<ServiciosModel>();
