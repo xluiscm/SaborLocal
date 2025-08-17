@@ -44,7 +44,9 @@ public class ClientesController {
     public static List<ClientesModel> mostrarTodos() {
         var lista = new ArrayList<ClientesModel>();
         String sql = "SELECT idCliente, nombre, apellidoPaterno, apellidoMaterno, direccion, genero, fechaNacimiento, telefono, edad, idUsuario FROM Clientes";
-        try (Connection con = Conexion.obtenerConexion(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) { 
+
             while (rs.next()) {
                 ClientesModel client = new ClientesModel(
                         rs.getInt("idCliente"),
@@ -114,16 +116,16 @@ public class ClientesController {
 
         try (Connection conn = Conexion.obtenerConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            String terminoConWildcards = "%" + termino + "%";
-            pstmt.setString(1, terminoConWildcards);
-            pstmt.setString(2, terminoConWildcards);
-            pstmt.setString(3, terminoConWildcards);
-            pstmt.setString(4, terminoConWildcards);
-            pstmt.setString(5, terminoConWildcards);
-            pstmt.setString(6, terminoConWildcards);
-            pstmt.setString(7, terminoConWildcards);
-            pstmt.setString(8, terminoConWildcards);
-            pstmt.setString(9, terminoConWildcards); // Asigna el valor para el 9º parámetro
+            String cli = "%" + termino + "%";
+            pstmt.setString(1, cli);
+            pstmt.setString(2, cli);
+            pstmt.setString(3, cli);
+            pstmt.setString(4, cli);
+            pstmt.setString(5, cli);
+            pstmt.setString(6, cli);
+            pstmt.setString(7, cli);
+            pstmt.setString(8, cli);
+            pstmt.setString(9, cli); // Asigna el valor para el 9º parámetro
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {

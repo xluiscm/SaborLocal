@@ -341,9 +341,7 @@ public class FrmPasteles extends javax.swing.JFrame {
 
     private void btningredientes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btningredientes2ActionPerformed
         // TODO add your handling code here:
-        FrmIngredientesAgotadoss frmin =  new  FrmIngredientesAgotadoss();
-        frmin.setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_btningredientes2ActionPerformed
 
     /**

@@ -3,6 +3,7 @@ mx\edu\utxicotepec\saborlocal\Pastelero\FrmMenuPastelero.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmMenuVendedor$4.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPasteles$3.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPedidoPersonalzado$1.class
+mx\edu\utxicotepec\saborlocal\DAOS\InventarioModel.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPastelPersonalizado$2.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmClientes.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistro$3.class
@@ -17,7 +18,6 @@ mx\edu\utxicotepec\saborlocal\SaborLocal.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmClientes$3.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmLogueo.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmMenuVendedor$3.class
-mx\edu\utxicotepec\saborlocal\Pastelero\FrmIngredientesAgotadoss.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral$1.class
 mx\edu\utxicotepec\saborlocal\Controllers\UsuriosController.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPedidoVista$2.class
@@ -39,8 +39,9 @@ mx\edu\utxicotepec\saborlocal\Controllers\Pasteles.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmLogueo$1.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPedidosGeneral$1.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistroPedido$2.class
+mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral$4.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmCatalogoProducto1.class
-mx\edu\utxicotepec\saborlocal\Pastelero\FrmIngredientesAgotadoss$1.class
+mx\edu\utxicotepec\saborlocal\Controllers\InventarioController.class
 mx\edu\utxicotepec\saborlocal\DAOS\UsuariosModel.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmClientes$5.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPasteles.class
@@ -55,7 +56,6 @@ mx\edu\utxicotepec\saborlocal\Vendedor\FrmPedidoVista$1.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmLogueo$2.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmCatalogoGeneral$2.class
 mx\edu\utxicotepec\saborlocal\Conexion\Conexion.class
-mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral2.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmInicio$1.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPastelPersonalizado2.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPasteles2.class
@@ -69,11 +69,11 @@ mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistroPedido$4.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistro$4.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmInicio$2.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmClientes$4.class
+mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral$3.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPedidoConfirmado.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmMenuPastelero$3.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPedidos$2.class
 mx\edu\utxicotepec\saborlocal\Controllers\PedidoController.class
-mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral2$1.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmInicio.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPastelPersonalizado.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPasteles$2.class
@@ -85,5 +85,4 @@ mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistroPedido.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmMenuPastelero$PanelConIconoSuperpuesto.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmMenuVendedor$2.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPastelPersonalizado$1.class
-mx\edu\utxicotepec\saborlocal\Controllers\CatalogoPastel1Controlador.class
 mx\edu\utxicotepec\saborlocal\DAOS\PedidoModel.class
