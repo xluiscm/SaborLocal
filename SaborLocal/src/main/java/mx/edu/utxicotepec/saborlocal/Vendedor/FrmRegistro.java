@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
-import mx.edu.utxicotepec.saborlocal.DAOS.ClientesModel;
+import mx.edu.utxicotepec.saborlocal.Model.ClientesModel;
 
 /**
  *

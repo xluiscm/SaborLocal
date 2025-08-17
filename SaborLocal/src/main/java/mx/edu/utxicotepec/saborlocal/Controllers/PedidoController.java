@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
-import mx.edu.utxicotepec.saborlocal.DAOS.PedidoModel;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
 
 /**
  *

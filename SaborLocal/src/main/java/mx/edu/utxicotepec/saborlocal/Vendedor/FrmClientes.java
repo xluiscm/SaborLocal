@@ -15,8 +15,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
 import mx.edu.utxicotepec.saborlocal.Controllers.UsuriosController;
-import mx.edu.utxicotepec.saborlocal.DAOS.ClientesModel;
-import mx.edu.utxicotepec.saborlocal.DAOS.UsuariosModel;
+import mx.edu.utxicotepec.saborlocal.Model.ClientesModel;
+import mx.edu.utxicotepec.saborlocal.Model.UsuariosModel;
 
 /**
  *

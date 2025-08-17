@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Conexion.Conexion;
 import mx.edu.utxicotepec.saborlocal.Controllers.InventarioController;
-import mx.edu.utxicotepec.saborlocal.DAOS.InventarioModel;
+import mx.edu.utxicotepec.saborlocal.Model.InventarioModel;
 import mx.edu.utxicotepec.saborlocal.Pastelero.FrmMenuPastelero;
 
 /**

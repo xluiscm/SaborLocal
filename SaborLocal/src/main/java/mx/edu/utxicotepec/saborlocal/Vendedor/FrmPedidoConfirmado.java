@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import mx.edu.utxicotepec.saborlocal.Conexion.Conexion;
 import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
-import mx.edu.utxicotepec.saborlocal.DAOS.PedidoModel;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
 
 /**
  *

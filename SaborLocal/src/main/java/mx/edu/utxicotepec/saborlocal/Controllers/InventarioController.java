@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.utxicotepec.saborlocal.Conexion.Conexion;
-import mx.edu.utxicotepec.saborlocal.DAOS.InventarioModel;
+import mx.edu.utxicotepec.saborlocal.Model.InventarioModel;
 
 /**
  *

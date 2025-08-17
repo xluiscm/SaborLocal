@@ -15,8 +15,8 @@ import mx.edu.utxicotepec.saborlocal.Controllers.PedidoController;
 import mx.edu.utxicotepec.saborlocal.Controllers.Pasteles;
 import mx.edu.utxicotepec.saborlocal.Controllers.Tamanio;
 import mx.edu.utxicotepec.saborlocal.Vendedor.FrmPedidoConfirmado;
-import mx.edu.utxicotepec.saborlocal.DAOS.ClientesModel;
-import mx.edu.utxicotepec.saborlocal.DAOS.PedidoModel;
+import mx.edu.utxicotepec.saborlocal.Model.ClientesModel;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
 
 /**
  *

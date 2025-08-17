@@ -8,7 +8,7 @@ import mx.edu.utxicotepec.saborlocal.Vendedor.FrmMenuVendedor;
 import mx.edu.utxicotepec.saborlocal.Pastelero.FrmMenuPastelero;
 import javax.swing.JOptionPane;
 import mx.edu.utxicotepec.saborlocal.Controllers.UsuriosController;
-import mx.edu.utxicotepec.saborlocal.DAOS.UsuariosModel;
+import mx.edu.utxicotepec.saborlocal.Model.UsuariosModel;
 
 /**
  *

@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import mx.edu.utxicotepec.saborlocal.DAOS.UsuariosModel;
+import mx.edu.utxicotepec.saborlocal.Model.UsuariosModel;
 
 /**
  *
