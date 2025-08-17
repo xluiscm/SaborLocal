@@ -50,6 +50,8 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
         btnguardar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btnbuscar = new javax.swing.JButton();
+        btnguardar1 = new javax.swing.JButton();
+        btneliminar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +110,24 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             }
         });
 
+        btnguardar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Agrgar.png")); // NOI18N
+        btnguardar1.setOpaque(true);
+        btnguardar1.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnguardar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardar1ActionPerformed(evt);
+            }
+        });
+
+        btneliminar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Eliminar.png")); // NOI18N
+        btneliminar1.setOpaque(true);
+        btneliminar1.setPreferredSize(new java.awt.Dimension(125, 125));
+        btneliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,11 +140,15 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
                             .addComponent(btnatras)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(173, 173, 173)
-                                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(btnguardar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btneliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
+                                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(94, 94, 94)
                                 .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(287, 287, 287)
+                                .addGap(96, 96, 96)
                                 .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(132, 132, 132))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -137,22 +161,24 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(btnatras))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
+                                .addComponent(jLabel1)
+                                .addGap(104, 104, 104)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btneliminar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnguardar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(29, 29, 29)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(287, Short.MAX_VALUE))
         );
@@ -197,6 +223,16 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
         buscar();
     }//GEN-LAST:event_btnbuscarActionPerformed
 
+    private void btnguardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardar1ActionPerformed
+        // TODO add your handling code here:
+        agregar();
+    }//GEN-LAST:event_btnguardar1ActionPerformed
+
+    private void btneliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminar1ActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+    }//GEN-LAST:event_btneliminar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -239,27 +275,49 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
     }
 
     public void guardar() {
+        if (tblinventario.isEditing()) {
+            tblinventario.getCellEditor().stopCellEditing();
+        }
         DefaultTableModel modeloTabla = (DefaultTableModel) tblinventario.getModel();
+        boolean exito = true;
 
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        // Iterar hacia atrás para evitar problemas con la eliminación de filas
+        for (int i = modeloTabla.getRowCount() - 1; i >= 0; i--) {
             try {
-                int idIngrediente = (int) modeloTabla.getValueAt(i, 0);
+                Object idValue = modeloTabla.getValueAt(i, 0);
+                int idIngrediente = (idValue != null && idValue.toString().matches("\\d+")) ? Integer.parseInt(idValue.toString()) : 0;
 
-                // Si el ID es mayor que 0, significa que el registro ya existe en la base de datos
-                if (idIngrediente > 0) {
-                    String ingrediente = modeloTabla.getValueAt(i, 1).toString();
-                    String tipoUso = modeloTabla.getValueAt(i, 2).toString();
-                    String cantidad = modeloTabla.getValueAt(i, 3).toString();
+                String ingrediente = (modeloTabla.getValueAt(i, 1) != null) ? modeloTabla.getValueAt(i, 1).toString() : "";
+                String tipoUso = (modeloTabla.getValueAt(i, 2) != null) ? modeloTabla.getValueAt(i, 2).toString() : "";
+                String cantidad = (modeloTabla.getValueAt(i, 3) != null) ? modeloTabla.getValueAt(i, 3).toString() : "";
 
-                    InventarioModel item = new InventarioModel(idIngrediente, ingrediente, tipoUso, cantidad);
+                // Si la fila está completamente vacía, la elimina de la tabla y continúa
+                if (idIngrediente == 0 && ingrediente.isEmpty() && tipoUso.isEmpty() && cantidad.isEmpty()) {
+                    modeloTabla.removeRow(i);
+                    continue;
+                }
+
+                InventarioModel item = new InventarioModel(idIngrediente, ingrediente, tipoUso, cantidad);
+
+                if (idIngrediente <= 0) {
+                    // Nuevo registro
+                    InventarioController.guardarIngrediente(item);
+                } else {
+                    // Registro existente
                     InventarioController.modificarIngrediente(item);
                 }
+            } catch (NumberFormatException e) {
+                exito = false;
+                JOptionPane.showMessageDialog(null, "Error de formato en el ID de la fila " + (i + 1));
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error al procesar la fila " + (i + 1) + ": " + ex.getMessage());
+                exito = false;
+                JOptionPane.showMessageDialog(null, "Error al procesar la fila " + (i + 1) + ": " + ex.getMessage());
             }
         }
 
-        JOptionPane.showMessageDialog(this, "Todos los cambios han sido guardados.");
+        if (exito) {
+            JOptionPane.showMessageDialog(null, "Cambios guardados exitosamente.");
+        }
         cargarTablaInventario();
     }
 
@@ -293,45 +351,89 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
     }
 
     public void modificar() {
+        if (tblinventario.isEditing()) {
+            tblinventario.getCellEditor().stopCellEditing();
+        }
         int filaSeleccionada = tblinventario.getSelectedRow();
 
-        // 1. Verificar si hay una fila seleccionada
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un ingrediente de la tabla para modificarlo.");
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para modificar.");
             return;
         }
 
         try {
-            // 2. Obtener los datos de la fila seleccionada
             int idIngrediente = (int) tblinventario.getValueAt(filaSeleccionada, 0);
             String ingrediente = tblinventario.getValueAt(filaSeleccionada, 1).toString();
             String tipoUso = tblinventario.getValueAt(filaSeleccionada, 2).toString();
             String cantidad = tblinventario.getValueAt(filaSeleccionada, 3).toString();
 
-            // 3. Crear un objeto modelo con los datos actualizados
             InventarioModel ingredienteModificado = new InventarioModel(idIngrediente, ingrediente, tipoUso, cantidad);
-
-            // 4. Llamar al método del controlador para modificar en la base de datos
             boolean modificado = InventarioController.modificarIngrediente(ingredienteModificado);
 
-            // 5. Mostrar un mensaje de éxito o error
             if (modificado) {
-                JOptionPane.showMessageDialog(this, "Ingrediente modificado exitosamente.");
-                // Recargar la tabla para reflejar los cambios
-                cargarTablaInventario();
+                JOptionPane.showMessageDialog(null, "Ingrediente modificado exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(this, "Error al modificar el ingrediente en la base de datos.");
+                JOptionPane.showMessageDialog(null, "Error al modificar el ingrediente.");
             }
+            cargarTablaInventario(); // Recarga la tabla
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error. Asegúrese de que los datos son correctos.");
-            System.err.println("Error al modificar fila de inventario: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error. Asegúrese de que los datos son correctos.");
+        }
+    }
+
+    public void agregar() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblinventario.getModel();
+
+        // Crear una fila con ID nulo o 0, para que se guarde como un nuevo registro
+        Object[] filaVacia = {null, null, null, null};
+
+        // Obtener las columnas del modelo para asegurar el tamaño correcto
+        filaVacia = new Object[modeloTabla.getColumnCount()];
+
+        modeloTabla.addRow(filaVacia);
+    }
+
+    public void eliminar() {
+        int filaSeleccionada = tblinventario.getSelectedRow();
+
+        // 1. Verifica si hay una fila seleccionada
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione un ingrediente para eliminarlo.");
+            return;
+        }
+
+        // 2. Confirma la acción con el usuario
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este ingrediente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            try {
+                // 3. Obtiene el ID de la fila seleccionada
+                int idIngrediente = (int) tblinventario.getValueAt(filaSeleccionada, 0);
+
+                // 4. Llama al método del controlador para eliminar el registro
+                boolean eliminado = InventarioController.eliminarIngrediente(idIngrediente);
+
+                // 5. Muestra un mensaje y actualiza la tabla
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(null, "Ingrediente eliminado exitosamente.");
+                    cargarTablaInventario(); // Recarga la tabla para reflejar el cambio
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al eliminar el ingrediente de la base de datos.");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ocurrió un error. No se pudo eliminar el ingrediente.");
+                System.err.println("Error al eliminar ingrediente: " + ex.getMessage());
+            }
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras;
     private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btneliminar;
+    private javax.swing.JButton btneliminar1;
     private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnguardar1;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

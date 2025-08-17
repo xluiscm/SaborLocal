@@ -12,6 +12,7 @@ mx\edu\utxicotepec\saborlocal\Controllers\ClientesController.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistroPedido$1.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistro.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmIngredientesAgotados$1.class
+mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral$5.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPedidos$1.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPastelPersonalizado2$3.class
 mx\edu\utxicotepec\saborlocal\SaborLocal.class
@@ -70,6 +71,7 @@ mx\edu\utxicotepec\saborlocal\Vendedor\FrmRegistro$4.class
 mx\edu\utxicotepec\saborlocal\Logueo\FrmInicio$2.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmClientes$4.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral$3.class
+mx\edu\utxicotepec\saborlocal\Pastelero\FrmInventarioGeneral$6.class
 mx\edu\utxicotepec\saborlocal\Vendedor\FrmPedidoConfirmado.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmMenuPastelero$3.class
 mx\edu\utxicotepec\saborlocal\Pastelero\FrmPedidos$2.class

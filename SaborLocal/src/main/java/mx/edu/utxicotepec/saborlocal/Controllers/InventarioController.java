@@ -120,4 +120,18 @@ public class InventarioController {
         }
         return ingredientesEncontrados;
     }
+
+    public static boolean eliminarIngrediente(int id) {
+        String sql = "DELETE FROM inventario WHERE idIngrediente = ?";
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException ex) {
+            System.err.println("Error al eliminar ingrediente: " + ex.getMessage());
+            return false;
+        }
+    }
 }
