@@ -4,19 +4,39 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import mx.edu.utxicotepec.saborlocal.Conexion.Conexion;
+import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
+import mx.edu.utxicotepec.saborlocal.DAOS.PedidoModel;
+
 /**
  *
  * @author xidon
  */
 public class FrmPedidoConfirmado extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPedidoConfirmado.class.getName());
 
     /**
      * Creates new form FrmPedidoConfiV
      */
-    public FrmPedidoConfirmado() {
+    public FrmPedidoConfirmado(PedidoModel pedido) {
         initComponents();
+
+        int idCliente = pedido.getIdCliente();
+
+        // Llamar al método para obtener el nombre completo del cliente
+        String nombreCliente = ClientesController.obtenerNombreClientePorId(idCliente);
+
+        // Llenar los JLabels con la información del pedido
+        lblnombrecliente.setText(nombreCliente);
+        lblinfopedido.setText(pedido.getPastelSeleccionado() + " - " + pedido.getTamanioSeleccionado());
+        lblestado.setText(pedido.getEstado());
+        lblentrega.setText(pedido.getFechaEntregaEstimada());
+        lblcosto.setText(String.valueOf("$ " + pedido.getTotalPedido()));
     }
 
     /**
@@ -42,6 +62,8 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
         lblnombrecliente = new javax.swing.JLabel();
         btnrealizar1 = new javax.swing.JButton();
         btninicio = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        lblcosto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +104,7 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
         );
 
         lblinfopedido.setBackground(new java.awt.Color(255, 255, 255));
+        lblinfopedido.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblinfopedido.setForeground(new java.awt.Color(0, 0, 0));
         lblinfopedido.setToolTipText("");
         lblinfopedido.setOpaque(true);
@@ -97,6 +120,7 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
         jLabel6.setText("Estado");
 
         lblestado.setBackground(new java.awt.Color(255, 255, 255));
+        lblestado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblestado.setForeground(new java.awt.Color(0, 0, 0));
         lblestado.setToolTipText("");
         lblestado.setOpaque(true);
@@ -107,6 +131,7 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
         jLabel4.setText("Entrega del pedido");
 
         lblentrega.setBackground(new java.awt.Color(255, 255, 255));
+        lblentrega.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblentrega.setForeground(new java.awt.Color(0, 0, 0));
         lblentrega.setToolTipText("");
         lblentrega.setOpaque(true);
@@ -117,6 +142,7 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
         jLabel7.setText("Gracias por tu compra");
 
         lblnombrecliente.setBackground(new java.awt.Color(255, 255, 255));
+        lblnombrecliente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblnombrecliente.setForeground(new java.awt.Color(0, 0, 0));
         lblnombrecliente.setToolTipText("");
         lblnombrecliente.setOpaque(true);
@@ -137,6 +163,17 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Costo");
+
+        lblcosto.setBackground(new java.awt.Color(255, 255, 255));
+        lblcosto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblcosto.setForeground(new java.awt.Color(0, 0, 0));
+        lblcosto.setToolTipText("");
+        lblcosto.setOpaque(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,9 +185,10 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblentrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblentrega, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -165,7 +203,9 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnrealizar1)
                                 .addGap(52, 52, 52)
-                                .addComponent(btninicio)))
+                                .addComponent(btninicio))
+                            .addComponent(jLabel8)
+                            .addComponent(lblcosto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(238, 238, 238))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,18 +221,22 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
                     .addComponent(lblinfopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblnombrecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61)
-                .addComponent(jLabel6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblcosto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
                 .addComponent(jLabel4)
-                .addGap(26, 26, 26)
+                .addGap(39, 39, 39)
                 .addComponent(lblentrega, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnrealizar1)
                     .addComponent(btninicio))
-                .addGap(0, 278, Short.MAX_VALUE))
+                .addGap(0, 211, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,27 +275,36 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        // ... (Código para el Look and Feel) ...
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmPedidoConfirmado().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            // Crea un objeto PedidoModel de prueba
+            PedidoModel pedidoDePrueba = new PedidoModel(1, "2025-08-16 19:20:58", "Pendiente", 500.0, "Mensaje de prueba", "2025-08-20", "Pastel de Chocolate", "Mediano");
+            new FrmPedidoConfirmado(pedidoDePrueba).setVisible(true);
+        });
     }
 
+    // En FrmPedidoConfirmado.java
+    public static String obtenerNombreClientePorId(int idCliente) {
+        String nombreCompleto = null;
+        String sql = "SELECT nombre, apellidoPaterno, apellidoMaterno FROM Clientes WHERE idCliente = ?";
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idCliente);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String nombre = rs.getString("nombre");
+                    String apellidoPaterno = rs.getString("apellidoPaterno");
+                    String apellidoMaterno = rs.getString("apellidoMaterno");
+                    nombreCompleto = nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombreCompleto;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btninicio;
     private javax.swing.JButton btnrealizar1;
@@ -261,8 +314,10 @@ public class FrmPedidoConfirmado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblcosto;
     private javax.swing.JLabel lblentrega;
     private javax.swing.JLabel lblestado;
     private javax.swing.JLabel lblinfopedido;

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import mx.edu.utxicotepec.saborlocal.DAOS.ClientesModel;
 
 /**
@@ -67,39 +66,42 @@ public class ClientesController {
         return lista;
     }
 
-    // Método corregido para obtener el ID del cliente por su nombre completo.
-    public static int obtenerIdClientePorNombreCompleto(String nombreCompleto) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        int idCliente = -1; // Valor por defecto
+    public static String obtenerNombreClientePorId(int idCliente) {
 
-        try {
-            conn = Conexion.obtenerConexion(); // Uso consistente del método de conexión
-            String sql = "SELECT idCliente FROM Clientes WHERE CONCAT(nombre, ' ', apellidoPaterno, ' ', apellidoMaterno) = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, nombreCompleto);
-            rs = pstmt.executeQuery();
+        String nombreCompleto = null;
+        String sql = "SELECT nombre, apellidoPaterno, apellidoMaterno FROM Clientes WHERE idCliente = ?";
 
-            if (rs.next()) {
-                idCliente = rs.getInt("idCliente"); // Uso consistente del nombre de la columna
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idCliente);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String nombre = rs.getString("nombre");
+                    String apellidoPaterno = rs.getString("apellidoPaterno");
+                    String apellidoMaterno = rs.getString("apellidoMaterno");
+                    nombreCompleto = nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
+        }
+        return nombreCompleto;
+    }
+
+    public static int obtenerIdClientePorNombreCompleto(String nombreCompleto) {
+        String sql = "SELECT idCliente FROM Clientes WHERE CONCAT(nombre, ' ', apellidoPaterno, ' ', apellidoMaterno) = ?";
+        int idCliente = -1; // Inicializar con un valor que indique que no se encontró
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nombreCompleto);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    idCliente = rs.getInt("idCliente");
                 }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return idCliente;
     }

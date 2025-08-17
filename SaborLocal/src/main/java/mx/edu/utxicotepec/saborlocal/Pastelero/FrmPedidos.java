@@ -4,8 +4,6 @@
  */
 package mx.edu.utxicotepec.saborlocal.Pastelero;
 
-import mx.edu.utxicotepec.saborlocal.Vendedor.FrmPedidosGeneral;
-
 /**
  *
  * @author xidon

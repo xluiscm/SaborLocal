@@ -92,7 +92,7 @@ public class PedidoModel {
         this.fechaEntregaEstimada = fechaEntregaEstimada;
     }
 
-    public PedidoModel(int idPedido, int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada) {
+    public PedidoModel(int idPedido, int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
         this.idPedido = idPedido;
         this.idCliente = idCliente;
         this.fechaPedido = fechaPedido;
@@ -100,19 +100,12 @@ public class PedidoModel {
         this.totalPedido = totalPedido;
         this.mensaje = mensaje;
         this.fechaEntregaEstimada = fechaEntregaEstimada;
-    }
-
-    public PedidoModel(int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada) {
-        this.idCliente = idCliente;
-        this.fechaPedido = fechaPedido;
-        this.estado = estado;
-        this.totalPedido = totalPedido;
-        this.mensaje = mensaje;
-        this.fechaEntregaEstimada = fechaEntregaEstimada;
+        this.pastelSeleccionado = pastelSeleccionado;
+        this.tamanioSeleccionado = tamanioSeleccionado;
     }
 
     // ➡️ Constructor actualizado que coincide con el código de tu botón
-    public PedidoModel(int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado ) {
+    public PedidoModel(int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
         this.idCliente = idCliente;
         this.fechaPedido = fechaPedido;
         this.estado = estado;

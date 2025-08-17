@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package mx.edu.utxicotepec.saborlocal.Vendedor;
+package mx.edu.utxicotepec.saborlocal.Pastelero;
 
 import mx.edu.utxicotepec.saborlocal.Pastelero.FrmPedidos;
 

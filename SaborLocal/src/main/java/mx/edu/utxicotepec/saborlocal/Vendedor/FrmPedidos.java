@@ -21,7 +21,7 @@ public class FrmPedidos extends javax.swing.JFrame {
     public FrmPedidos() {
         initComponents();
 
-        String[] columnas = {"idDetallePedido", "Pastel", "Tamanio", "Cliente", "Mensaje", "Fecha de entrega", "Estado"};
+        String[] columnas = {"idDetallePedido", "Pastel", "Tamanio", "Cliente", "Costo", "Mensaje", "Fecha de entrega", "Estado"};
 
         // Inicializa el modelo y lo asigna a la variable correcta
         DefaultTableModel modeloPedidos = new DefaultTableModel(null, columnas);
