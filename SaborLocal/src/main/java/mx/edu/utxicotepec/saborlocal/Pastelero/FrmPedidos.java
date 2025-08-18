@@ -299,7 +299,7 @@ public class FrmPedidos extends javax.swing.JFrame {
 
     private void btnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatrasActionPerformed
         // TODO add your handling code here:
-        FrmPasteles frmmp = new FrmPasteles();
+        FrmMenuPastelero frmmp = new FrmMenuPastelero();
         frmmp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnatrasActionPerformed
