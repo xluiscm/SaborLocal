@@ -4,19 +4,47 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import mx.edu.utxicotepec.saborlocal.Controllers.InventarioController;
+import mx.edu.utxicotepec.saborlocal.Model.InventarioModel;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizado2Model;
+
 /**
  *
  * @author xidon
  */
 public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPastelPersonalizado2.class.getName());
+    private DefaultTableModel modeloTabla;
+    private DefaultListModel<String> modeloLista;
+    private PedidoPersonalizado2Model pedidoPersonalizado; // ⬅️ Variable ya declarada en tu código, ¡déjala ahí!
 
     /**
-     * Creates new form FrmPastelPersonalizado2
+     * Creates new form PastelPersonalizado2
      */
     public FrmPastelPersonalizado2() {
         initComponents();
+        modeloTabla = new DefaultTableModel();
+        tblingredientes.setModel(modeloTabla);
+        modeloLista = new DefaultListModel<>();
+        listingredientes.setModel(modeloLista);
+        cargarIngredientes();
+    }
+
+    public FrmPastelPersonalizado2(PedidoPersonalizado2Model pedidoPersonalizado) {
+        // Asigna el objeto recibido a la variable de la clase
+        this.pedidoPersonalizado = pedidoPersonalizado;
+        // Inicializa el resto de los componentes
+        initComponents();
+        modeloTabla = new DefaultTableModel();
+        tblingredientes.setModel(modeloTabla);
+        modeloLista = new DefaultListModel<>();
+        listingredientes.setModel(modeloLista);
+        cargarIngredientes();
     }
 
     /**
@@ -29,28 +57,46 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listingredientes = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
-        btnatras1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        radicumple = new javax.swing.JRadioButton();
-        btnsiguiente = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        radiobaby = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        radioboda = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
-        radiootro = new javax.swing.JRadioButton();
+        btnatras1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        comboingredientes = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblingredientes = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtcantidad = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        btnbuscar = new javax.swing.JButton();
+        btnguardar = new javax.swing.JButton();
+        btnconfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 240, 217));
         jPanel1.setPreferredSize(new java.awt.Dimension(1440, 1024));
 
+        listingredientes.setBackground(new java.awt.Color(255, 255, 255));
+        listingredientes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        listingredientes.setForeground(new java.awt.Color(0, 0, 0));
+        listingredientes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listingredientes);
+
         jPanel2.setBackground(new java.awt.Color(185, 157, 179));
         jPanel2.setForeground(new java.awt.Color(185, 157, 179));
         jPanel2.setPreferredSize(new java.awt.Dimension(1440, 100));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 40)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Pastel Personalizado");
 
         btnatras1.setBackground(new java.awt.Color(185, 157, 179));
         btnatras1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -63,159 +109,199 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Botono volver (1).png")); // NOI18N
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnatras1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addContainerGap(1192, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(btnatras1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(387, 387, 387)
+                .addComponent(jLabel7)
+                .addContainerGap(557, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(btnatras1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                .addComponent(btnatras1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 40)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("¿Para que ocasion es?");
+        jLabel6.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 32)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Ingredientes");
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\imagen 10.png")); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        radicumple.setBackground(new java.awt.Color(255, 240, 217));
-        radicumple.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        radicumple.setForeground(new java.awt.Color(0, 0, 0));
-        radicumple.setText("Cumpleaños");
-
-        btnsiguiente.setBackground(new java.awt.Color(255, 255, 255));
-        btnsiguiente.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        btnsiguiente.setForeground(new java.awt.Color(0, 0, 0));
-        btnsiguiente.setText("Siguiente");
-        btnsiguiente.addActionListener(new java.awt.event.ActionListener() {
+        comboingredientes.setBackground(new java.awt.Color(255, 255, 255));
+        comboingredientes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        comboingredientes.setForeground(new java.awt.Color(0, 0, 0));
+        comboingredientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboingredientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsiguienteActionPerformed(evt);
+                comboingredientesActionPerformed(evt);
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\imagen (10).png")); // NOI18N
-        jLabel2.setText("jLabel1");
-        jLabel2.setPreferredSize(new java.awt.Dimension(200, 200));
+        tblingredientes.setBackground(new java.awt.Color(255, 255, 255));
+        tblingredientes.setForeground(new java.awt.Color(0, 0, 0));
+        tblingredientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblingredientes);
 
-        radiobaby.setBackground(new java.awt.Color(255, 240, 217));
-        radiobaby.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        radiobaby.setForeground(new java.awt.Color(0, 0, 0));
-        radiobaby.setText("Baby Shower");
+        jLabel8.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 32)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Escoge tus ingredientes");
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 161.png")); // NOI18N
-        jLabel3.setText("jLabel1");
-        jLabel3.setPreferredSize(new java.awt.Dimension(200, 200));
+        jLabel9.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 32)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Cantidad");
 
-        radioboda.setBackground(new java.awt.Color(255, 240, 217));
-        radioboda.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        radioboda.setForeground(new java.awt.Color(0, 0, 0));
-        radioboda.setText("Boda");
-        radioboda.addActionListener(new java.awt.event.ActionListener() {
+        txtcantidad.setBackground(new java.awt.Color(255, 255, 255));
+        txtcantidad.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtcantidad.setForeground(new java.awt.Color(0, 0, 0));
+        txtcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radiobodaActionPerformed(evt);
+                txtcantidadActionPerformed(evt);
             }
         });
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 161.png")); // NOI18N
-        jLabel4.setText("jLabel1");
-        jLabel4.setPreferredSize(new java.awt.Dimension(200, 200));
+        jLabel10.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 32)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
 
-        radiootro.setBackground(new java.awt.Color(255, 240, 217));
-        radiootro.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        radiootro.setForeground(new java.awt.Color(0, 0, 0));
-        radiootro.setText("Otro");
+        jLabel11.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 32)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Ingredietes Seleccionados");
+
+        btnbuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\busqueda.png")); // NOI18N
+        btnbuscar.setOpaque(true);
+        btnbuscar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
+        btnguardar.setBackground(new java.awt.Color(255, 255, 255));
+        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Agrgar.png")); // NOI18N
+        btnguardar.setOpaque(true);
+        btnguardar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
+
+        btnconfirmar.setBackground(new java.awt.Color(255, 255, 255));
+        btnconfirmar.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        btnconfirmar.setForeground(new java.awt.Color(0, 0, 0));
+        btnconfirmar.setText("Confirmar");
+        btnconfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnconfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(radicumple)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(189, 189, 189))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(radioboda)
-                        .addGap(254, 254, 254))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(259, 259, 259)
-                        .addComponent(radiobaby)
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(73, 73, 73)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(174, 174, 174)
+                                .addComponent(jLabel9))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
+                                .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(606, 606, 606))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(radiootro)
-                                .addGap(59, 59, 59)))))
-                .addGap(189, 189, 189))
+                            .addComponent(jLabel11)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnconfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(176, 176, 176))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(radicumple))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(radioboda)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addComponent(jLabel9)))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(166, 166, 166)
-                .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radiobaby)
-                    .addComponent(radiootro))
-                .addGap(204, 204, 204))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnconfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(157, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,13 +310,13 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,23 +324,33 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
 
     private void btnatras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatras1ActionPerformed
         // TODO add your handling code here:
-        //Boton de funcion para ir nuevamente a la pantalla del vendedor
-        FrmPastelPersonalizado frmvendedor = new FrmPastelPersonalizado();
-        frmvendedor.setVisible(true);
+        FrmRegistroPedido frmmenu = new FrmRegistroPedido();
+        frmmenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnatras1ActionPerformed
 
-    private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
+    private void comboingredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboingredientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboingredientesActionPerformed
+
+    private void txtcantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcantidadActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        // TODO add your handling code here:
+        agregarIngrediente();
+    }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
         // TODO add your handling code here:
         //Boton de funcion para ir nuevamente a la pantalla del vendedor
-        FrmPedidoVista  frmvendedor = new FrmPedidoVista();
-        frmvendedor.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnsiguienteActionPerformed
-
-    private void radiobodaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobodaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radiobodaActionPerformed
+        confirmar();
+    }//GEN-LAST:event_btnconfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,20 +377,91 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FrmPastelPersonalizado2().setVisible(true));
     }
 
+    private void cargarIngredientes() {
+        comboingredientes.removeAllItems();
+        modeloTabla.setRowCount(0);
+        modeloTabla.setColumnIdentifiers(new Object[]{"ID", "Ingrediente", "Tipo de Uso", "Cantidad"});
+
+        List<InventarioModel> lista = InventarioController.mostrarIngredientes();
+        for (InventarioModel ingrediente : lista) {
+            comboingredientes.addItem(ingrediente.getIngrediente());
+            modeloTabla.addRow(new Object[]{
+                ingrediente.getIdIngrediente(),
+                ingrediente.getIngrediente(),
+                ingrediente.getTipoUso(),
+                ingrediente.getCantidad()
+            });
+        }
+    }
+
+    public void agregarIngrediente() {
+        String ingredienteSeleccionado = (String) comboingredientes.getSelectedItem();
+        String cantidadTexto = txtcantidad.getText();
+
+        if (cantidadTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad.");
+            return;
+        }
+        int cantidadDeseada = 0;
+        try {
+            cantidadDeseada = Integer.parseInt(cantidadTexto);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
+            return;
+        }
+
+        // Aquí está la corrección: se llama a la clase InventarioController
+        // para obtener la cantidad disponible.
+        int cantidadDisponible = InventarioController.obtenerCantidad(ingredienteSeleccionado);
+
+        if (cantidadDeseada <= cantidadDisponible) {
+            modeloLista.addElement(ingredienteSeleccionado + " - " + cantidadDeseada);
+            JOptionPane.showMessageDialog(null, "Ingrediente agregado al pastel.");
+            txtcantidad.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay suficiente " + ingredienteSeleccionado + " en el inventario. Solo quedan " + cantidadDisponible + ".");
+        }
+    }
+// Archivo: FrmPastelPersonalizado2.java
+
+    public void confirmar() {
+        // 1. Recopila los datos de los ingredientes
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < modeloLista.getSize(); i++) {
+            sb.append(modeloLista.getElementAt(i)).append("\n");
+        }
+        String ingredientes = sb.toString();
+
+        // 2. Accede a los datos del modelo
+        String tipoPan = pedidoPersonalizado.getTipoPan();
+        String sabor = pedidoPersonalizado.getSabor();
+        String decoracion = pedidoPersonalizado.getDecoracion();
+
+        // 3. Crea una instancia de FrmPedidoVista
+        FrmPedidoVista pedidoVista = new FrmPedidoVista(tipoPan, sabor, decoracion, ingredientes);
+
+        // 4. Muestra la ventana y cierra la actual
+        pedidoVista.setVisible(true);
+        this.dispose();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras1;
-    private javax.swing.JButton btnsiguiente;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btnconfirmar;
+    private javax.swing.JButton btnguardar;
+    private javax.swing.JComboBox<String> comboingredientes;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton radicumple;
-    private javax.swing.JRadioButton radiobaby;
-    private javax.swing.JRadioButton radioboda;
-    private javax.swing.JRadioButton radiootro;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listingredientes;
+    private javax.swing.JTable tblingredientes;
+    private javax.swing.JTextField txtcantidad;
     // End of variables declaration//GEN-END:variables
 }

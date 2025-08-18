@@ -8,14 +8,14 @@ package mx.edu.utxicotepec.saborlocal.Vendedor;
  *
  * @author xidon
  */
-public class FrmPedidoPersonalzado extends javax.swing.JFrame {
+public class FrmPastelPersonalizado4 extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPedidoPersonalzado.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPastelPersonalizado4.class.getName());
 
     /**
      * Creates new form FrmPedidos
      */
-    public FrmPedidoPersonalzado() {
+    public FrmPastelPersonalizado4() {
         initComponents();
     }
 
@@ -250,7 +250,7 @@ public class FrmPedidoPersonalzado extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmPedidoPersonalzado().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FrmPastelPersonalizado4().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

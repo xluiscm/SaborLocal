@@ -4,8 +4,13 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Controllers.PedidoController;
+import mx.edu.utxicotepec.saborlocal.Controllers.PedidoPersonalizadoController;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizadoModel;
 
 /**
  *
@@ -28,9 +33,7 @@ public class FrmPedidos extends javax.swing.JFrame {
 
         // Asignar el modelo a tu JTable
         this.tblpedido.setModel(modeloPedidos);
-
-        // Llama al método para cargar los datos, pasándole el modelo recién creado
-        PedidoController.cargarDatosPedidos(modeloPedidos);
+        cargarTablaPedidos();
     }
 
     /**
@@ -45,11 +48,14 @@ public class FrmPedidos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnatras1 = new javax.swing.JButton();
+        btnsiguiente = new javax.swing.JButton();
+        btnatras2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblpedido = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        btnguardar = new javax.swing.JButton();
+        btnmodificar = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,14 +71,25 @@ public class FrmPedidos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Pedidos");
 
-        btnatras1.setBackground(new java.awt.Color(185, 157, 179));
-        btnatras1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnatras1.setForeground(new java.awt.Color(255, 240, 217));
-        btnatras1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Arrow 2.png")); // NOI18N
-        btnatras1.setPreferredSize(new java.awt.Dimension(100, 100));
-        btnatras1.addActionListener(new java.awt.event.ActionListener() {
+        btnsiguiente.setBackground(new java.awt.Color(185, 157, 179));
+        btnsiguiente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnsiguiente.setForeground(new java.awt.Color(255, 240, 217));
+        btnsiguiente.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\arrow-open-end-svgrepo-com 1.png")); // NOI18N
+        btnsiguiente.setPreferredSize(new java.awt.Dimension(100, 100));
+        btnsiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnatras1ActionPerformed(evt);
+                btnsiguienteActionPerformed(evt);
+            }
+        });
+
+        btnatras2.setBackground(new java.awt.Color(185, 157, 179));
+        btnatras2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnatras2.setForeground(new java.awt.Color(255, 240, 217));
+        btnatras2.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Arrow 2.png")); // NOI18N
+        btnatras2.setPreferredSize(new java.awt.Dimension(100, 100));
+        btnatras2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnatras2ActionPerformed(evt);
             }
         });
 
@@ -82,10 +99,12 @@ public class FrmPedidos extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnatras1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnatras2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(484, 484, 484)
                 .addComponent(jLabel1)
-                .addContainerGap(664, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 550, Short.MAX_VALUE)
+                .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,9 +112,11 @@ public class FrmPedidos extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnatras1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnatras2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         tblpedido.setBackground(new java.awt.Color(255, 255, 255));
@@ -114,20 +135,45 @@ public class FrmPedidos extends javax.swing.JFrame {
         tblpedido.setPreferredSize(new java.awt.Dimension(1300, 500));
         jScrollPane1.setViewportView(tblpedido);
 
-        jTable2.setBackground(new java.awt.Color(255, 255, 255));
-        jTable2.setForeground(new java.awt.Color(0, 0, 0));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "idPedidoPersonalizado", "Tipo de pan", "Sabor", "Cubierta", "Forma", "Tamaño", "Decoracion", "Ocasion", "Estado"
+        btnguardar.setBackground(new java.awt.Color(255, 255, 255));
+        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\guardar.png")); // NOI18N
+        btnguardar.setOpaque(true);
+        btnguardar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        });
+
+        btnmodificar.setBackground(new java.awt.Color(255, 255, 255));
+        btnmodificar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Editar.png")); // NOI18N
+        btnmodificar.setOpaque(true);
+        btnmodificar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarActionPerformed(evt);
+            }
+        });
+
+        btnbuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\busqueda.png")); // NOI18N
+        btnbuscar.setOpaque(true);
+        btnbuscar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
+        btneliminar.setBackground(new java.awt.Color(255, 255, 255));
+        btneliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Eliminar.png")); // NOI18N
+        btneliminar.setOpaque(true);
+        btneliminar.setPreferredSize(new java.awt.Dimension(125, 125));
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,21 +183,34 @@ public class FrmPedidos extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 147, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 279, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,12 +231,39 @@ public class FrmPedidos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnatras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatras1ActionPerformed
+    private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
         // TODO add your handling code here:
-        FrmMenuVendedor frmmenu = new FrmMenuVendedor();
+        FrmPedidoPer frmmenu = new FrmPedidoPer();
         frmmenu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnatras1ActionPerformed
+    }//GEN-LAST:event_btnsiguienteActionPerformed
+
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        // TODO add your handling code here:
+        guardar();
+    }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        // TODO add your handling code here:
+        modificar();
+    }//GEN-LAST:event_btnmodificarActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+        buscar();
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+    }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void btnatras2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatras2ActionPerformed
+        // TODO add your handling code here:
+        FrmMenuVendedor frmenuu = new FrmMenuVendedor();
+        frmenuu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnatras2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,14 +290,153 @@ public class FrmPedidos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FrmPedidos().setVisible(true));
     }
 
+    // Carga los datos de los pedidos normales en la tabla
+    private void cargarTablaPedidos() {
+        DefaultTableModel modelo = (DefaultTableModel) tblpedido.getModel();
+        modelo.setRowCount(0);
+        List<PedidoModel> pedidos = PedidoController.mostrarPedidos();
+        for (PedidoModel pedido : pedidos) {
+            String nombreCliente = PedidoController.obtenerNombreClientePorId(pedido.getIdCliente());
+            modelo.addRow(new Object[]{
+                pedido.getIdPedido(),
+                pedido.getPastelSeleccionado(),
+                pedido.getTamanioSeleccionado(),
+                nombreCliente,
+                pedido.getMensaje(),
+                pedido.getFechaEntregaEstimada(),
+                pedido.getEstado()
+            });
+        }
+    }
+
+    // Lógica para guardar o actualizar pedidos normales desde la tabla
+    public void guardar() {
+        if (tblpedido.isEditing()) {
+            tblpedido.getCellEditor().stopCellEditing();
+        }
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblpedido.getModel();
+
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            try {
+                Object idValue = modeloTabla.getValueAt(i, 0);
+                int idPedido = (idValue != null && idValue.toString().matches("\\d+")) ? Integer.parseInt(idValue.toString()) : 0;
+                String pastel = (modeloTabla.getValueAt(i, 1) != null) ? modeloTabla.getValueAt(i, 1).toString() : "";
+                String tamano = (modeloTabla.getValueAt(i, 2) != null) ? modeloTabla.getValueAt(i, 2).toString() : "";
+                String cliente = (modeloTabla.getValueAt(i, 3) != null) ? modeloTabla.getValueAt(i, 3).toString() : "";
+                double costo = (modeloTabla.getValueAt(i, 4) != null) ? Double.parseDouble(modeloTabla.getValueAt(i, 4).toString()) : 0.0;
+                String mensaje = (modeloTabla.getValueAt(i, 5) != null) ? modeloTabla.getValueAt(i, 5).toString() : "";
+                String fechaEntrega = (modeloTabla.getValueAt(i, 6) != null) ? modeloTabla.getValueAt(i, 6).toString() : "";
+                String estado = (modeloTabla.getValueAt(i, 7) != null) ? modeloTabla.getValueAt(i, 7).toString() : "";
+
+                int idCliente = PedidoController.obtenerIdClientePorNombre(cliente);
+                PedidoModel pedido = new PedidoModel(idPedido, idCliente, "", estado, costo, mensaje, fechaEntrega, pastel, tamano);
+
+                if (idPedido <= 0) {
+                    PedidoController.guardarPedido(pedido);
+                } else {
+                    PedidoController.modificarPedido(pedido);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al procesar la fila de pedido " + (i + 1) + ": " + ex.getMessage());
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Cambios guardados exitosamente.");
+        cargarTablaPedidos();
+    }
+
+    // Lógica para modificar un pedido normal seleccionado
+    public void modificar() {
+        int filaSeleccionada = tblpedido.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            if (tblpedido.isEditing()) {
+                tblpedido.getCellEditor().stopCellEditing();
+            }
+            try {
+                int idPedido = (int) tblpedido.getValueAt(filaSeleccionada, 0);
+                String pastel = (String) tblpedido.getValueAt(filaSeleccionada, 1);
+                String tamano = (String) tblpedido.getValueAt(filaSeleccionada, 2);
+                String cliente = (String) tblpedido.getValueAt(filaSeleccionada, 3);
+                double costo = (double) tblpedido.getValueAt(filaSeleccionada, 4);
+                String mensaje = (String) tblpedido.getValueAt(filaSeleccionada, 5);
+                String fecha = (String) tblpedido.getValueAt(filaSeleccionada, 6);
+                String estado = (String) tblpedido.getValueAt(filaSeleccionada, 7);
+
+                int idCliente = PedidoController.obtenerIdClientePorNombre(cliente);
+                PedidoModel pedidoModificado = new PedidoModel(idPedido, idCliente, "", estado, costo, mensaje, fecha, pastel, tamano);
+
+                if (PedidoController.modificarPedido(pedidoModificado)) {
+                    JOptionPane.showMessageDialog(this, "Pedido normal modificado exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al modificar el pedido normal.");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error. Asegúrese de que los datos del pedido normal son correctos.");
+            }
+            cargarTablaPedidos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para modificar.");
+        }
+    }
+
+    // Lógica para buscar pedidos normales
+    public void buscar() {
+        String termino = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
+        if (termino != null && !termino.trim().isEmpty()) {
+            List<PedidoModel> resultados = PedidoController.buscarPedidosPorTermino(termino.trim());
+            DefaultTableModel modeloTabla = (DefaultTableModel) tblpedido.getModel();
+            modeloTabla.setRowCount(0);
+            for (PedidoModel pedido : resultados) {
+                modeloTabla.addRow(new Object[]{
+                    pedido.getIdPedido(),
+                    pedido.getPastelSeleccionado(),
+                    pedido.getTamanioSeleccionado(),
+                    PedidoController.obtenerNombreClientePorId(pedido.getIdCliente()),
+                    pedido.getMensaje(),
+                    pedido.getFechaEntregaEstimada(),
+                    pedido.getEstado()
+                });
+            }
+        } else {
+            cargarTablaPedidos();
+        }
+    }
+
+    // Lógica para eliminar un pedido normal seleccionado
+    public void eliminar() {
+        int filaSeleccionada = tblpedido.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este pedido?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                try {
+                    int idPedido = (int) tblpedido.getValueAt(filaSeleccionada, 0);
+                    if (PedidoController.eliminarPedido(idPedido)) {
+                        JOptionPane.showMessageDialog(this, "Pedido normal eliminado exitosamente.");
+                        cargarTablaPedidos();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al eliminar el pedido normal.");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error. No se pudo eliminar el pedido.");
+                    System.err.println("Error al eliminar pedido normal: " + ex.getMessage());
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnatras1;
+    private javax.swing.JButton btnatras2;
+    private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btneliminar;
+    private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnmodificar;
+    private javax.swing.JButton btnsiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable tblpedido;
     // End of variables declaration//GEN-END:variables
 }

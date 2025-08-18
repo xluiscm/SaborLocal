@@ -4,12 +4,20 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import mx.edu.utxicotepec.saborlocal.Controllers.PedidoPersonalizadoController;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizado2Model;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizadoModel;
+
 /**
  *
  * @author xidon
  */
 public class FrmPastelPersonalizado extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPastelPersonalizado.class.getName());
 
     /**
@@ -17,6 +25,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
      */
     public FrmPastelPersonalizado() {
         initComponents();
+        cargarDatosComboBoxes();
     }
 
     /**
@@ -47,6 +56,8 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         btnatras1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         combocliente = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        comboocasion = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +72,6 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         combotipo.setBackground(new java.awt.Color(255, 255, 255));
         combotipo.setEditable(true);
         combotipo.setForeground(new java.awt.Color(0, 0, 0));
-        combotipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combotipo.setPreferredSize(new java.awt.Dimension(180, 50));
 
         jLabel2.setBackground(new java.awt.Color(255, 240, 217));
@@ -72,7 +82,6 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         comboforma.setBackground(new java.awt.Color(255, 255, 255));
         comboforma.setEditable(true);
         comboforma.setForeground(new java.awt.Color(0, 0, 0));
-        comboforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboforma.setPreferredSize(new java.awt.Dimension(180, 100));
 
         jLabel3.setBackground(new java.awt.Color(255, 240, 217));
@@ -83,7 +92,6 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         combosabor.setBackground(new java.awt.Color(255, 255, 255));
         combosabor.setEditable(true);
         combosabor.setForeground(new java.awt.Color(0, 0, 0));
-        combosabor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combosabor.setPreferredSize(new java.awt.Dimension(180, 50));
 
         jLabel4.setBackground(new java.awt.Color(255, 240, 217));
@@ -94,7 +102,6 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         combotama.setBackground(new java.awt.Color(255, 255, 255));
         combotama.setEditable(true);
         combotama.setForeground(new java.awt.Color(0, 0, 0));
-        combotama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combotama.setPreferredSize(new java.awt.Dimension(180, 100));
 
         jLabel5.setBackground(new java.awt.Color(255, 240, 217));
@@ -110,13 +117,11 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         combodecora.setBackground(new java.awt.Color(255, 255, 255));
         combodecora.setEditable(true);
         combodecora.setForeground(new java.awt.Color(0, 0, 0));
-        combodecora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combodecora.setPreferredSize(new java.awt.Dimension(180, 100));
 
         combovubierta.setBackground(new java.awt.Color(255, 255, 255));
         combovubierta.setEditable(true);
         combovubierta.setForeground(new java.awt.Color(0, 0, 0));
-        combovubierta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combovubierta.setPreferredSize(new java.awt.Dimension(180, 100));
 
         btnsiguiente.setBackground(new java.awt.Color(255, 255, 255));
@@ -177,56 +182,72 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         combocliente.setBackground(new java.awt.Color(255, 255, 255));
         combocliente.setEditable(true);
         combocliente.setForeground(new java.awt.Color(0, 0, 0));
-        combocliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combocliente.setPreferredSize(new java.awt.Dimension(180, 100));
+
+        jLabel9.setBackground(new java.awt.Color(255, 240, 217));
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 32)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Ocasion");
+
+        comboocasion.setBackground(new java.awt.Color(255, 255, 255));
+        comboocasion.setEditable(true);
+        comboocasion.setForeground(new java.awt.Color(0, 0, 0));
+        comboocasion.setPreferredSize(new java.awt.Dimension(180, 100));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(combodecora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(combotipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1))
-                        .addGap(153, 153, 153)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combosabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel3))))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(217, 217, 217)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combovubierta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboocasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel5)))
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(275, 275, 275)
-                                .addComponent(jLabel2)
-                                .addGap(139, 139, 139))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(combotama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(jLabel4))
-                                    .addComponent(comboforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(113, 113, 113))))
+                            .addComponent(combodecora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(combocliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addComponent(jLabel8)))
-                        .addGap(512, 512, 512))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combosabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel3)))))
+                .addGap(217, 217, 217)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combovubierta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(combotipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combotama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(113, 113, 113))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(161, 161, 161))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(148, 148, 148))))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -238,40 +259,54 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(combosabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboforma, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(164, 164, 164)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
+                                    .addComponent(combosabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboforma, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(103, 103, 103))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(95, 95, 95)
+                                            .addComponent(combovubierta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel2))
+                                            .addGap(103, 103, 103)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(53, 53, 53)
+                                        .addComponent(combocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel9))
                                 .addGap(53, 53, 53)
-                                .addComponent(combotipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(95, 95, 95)
-                                    .addComponent(combovubierta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(103, 103, 103))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel8))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combotama, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combodecora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(combotama, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(combodecora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addComponent(comboocasion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addGap(53, 53, 53)
+                        .addComponent(combotipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(228, 228, 228)
                 .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
@@ -294,16 +329,12 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
-        // TODO add your handling code here:
-           //Boton de funcion para ir nuevamente a la pantalla del vendedor
-        FrmPastelPersonalizado2 frmvendedor = new FrmPastelPersonalizado2();
-        frmvendedor.setVisible(true);
-        this.dispose();
+        siguiente();
     }//GEN-LAST:event_btnsiguienteActionPerformed
 
     private void btnatras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatras1ActionPerformed
         // TODO add your handling code here:
-        FrmRegistroPedido frmmenu = new  FrmRegistroPedido();
+        FrmRegistroPedido frmmenu = new FrmRegistroPedido();
         frmmenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnatras1ActionPerformed
@@ -333,12 +364,85 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FrmPastelPersonalizado().setVisible(true));
     }
 
+    private void cargarDatosComboBoxes() {
+        // 1. Cargar Clientes
+        List<String> clientes = PedidoPersonalizadoController.obtenerClientes();
+        for (String cliente : clientes) {
+            combocliente.addItem(cliente);
+        }
+
+        // 2. Cargar Tipos de Pan
+        List<String> tiposPan = PedidoPersonalizadoController.obtenerValoresUnicos("tipo_pan");
+        for (String tipo : tiposPan) {
+            combotipo.addItem(tipo);
+        }
+
+        // 3. Cargar Sabores
+        List<String> sabores = PedidoPersonalizadoController.obtenerValoresUnicos("sabor");
+        for (String sabor : sabores) {
+            combosabor.addItem(sabor);
+        }
+
+        // 4. Cargar Cubiertas
+        List<String> cubiertas = PedidoPersonalizadoController.obtenerValoresUnicos("cubierta");
+        for (String cubierta : cubiertas) {
+            combovubierta.addItem(cubierta);
+        }
+
+        // 5. Cargar Formas
+        List<String> formas = PedidoPersonalizadoController.obtenerValoresUnicos("forma");
+        for (String forma : formas) {
+            comboforma.addItem(forma);
+        }
+
+        // 6. Cargar Tamaños
+        List<String> tamanos = PedidoPersonalizadoController.obtenerValoresUnicos("tamanio");
+        for (String tamano : tamanos) {
+            combotama.addItem(tamano);
+        }
+
+        // 7. Cargar Decoraciones
+        List<String> decoraciones = PedidoPersonalizadoController.obtenerValoresUnicos("decoracion");
+        for (String decoracion : decoraciones) {
+            combodecora.addItem(decoracion);
+        }
+
+        // 8. Cargar Ocasiones
+        List<String> ocasiones = PedidoPersonalizadoController.obtenerValoresUnicos("ocasion");
+        for (String ocasion : ocasiones) {
+            comboocasion.addItem(ocasion);
+        }
+    }
+
+    public void siguiente() {
+        // 1. Recopila los datos de los JComboBox
+        String cliente = (String) combocliente.getSelectedItem();
+        String ocasion = (String) comboocasion.getSelectedItem();
+        String tipoPan = (String) combotipo.getSelectedItem();
+        String sabor = (String) combosabor.getSelectedItem();
+        String cubierta = (String) combovubierta.getSelectedItem();
+        String forma = (String) comboforma.getSelectedItem();
+        String decoracion = (String) combodecora.getSelectedItem();
+        String tamano = (String) combotama.getSelectedItem();
+
+        // 2. Crea el objeto del modelo con todos los datos, incluyendo el relleno
+        PedidoPersonalizado2Model pedido = new PedidoPersonalizado2Model(cliente, ocasion, tipoPan, sabor, cubierta, forma, decoracion, tamano);
+
+        // 3. Pasa el objeto del modelo a la siguiente pantalla
+        FrmPastelPersonalizado2 frmPastel2 = new FrmPastelPersonalizado2(pedido);
+
+        // 4. Muestra la nueva ventana y cierra la actual
+        frmPastel2.setVisible(true);
+        this.dispose();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras1;
     private javax.swing.JButton btnsiguiente;
     private javax.swing.JComboBox<String> combocliente;
     private javax.swing.JComboBox<String> combodecora;
     private javax.swing.JComboBox<String> comboforma;
+    private javax.swing.JComboBox<String> comboocasion;
     private javax.swing.JComboBox<String> combosabor;
     private javax.swing.JComboBox<String> combotama;
     private javax.swing.JComboBox<String> combotipo;
@@ -351,6 +455,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

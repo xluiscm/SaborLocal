@@ -281,7 +281,6 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblinventario.getModel();
         boolean exito = true;
 
-        // Iterar hacia atrás para evitar problemas con la eliminación de filas
         for (int i = modeloTabla.getRowCount() - 1; i >= 0; i--) {
             try {
                 Object idValue = modeloTabla.getValueAt(i, 0);
@@ -289,10 +288,12 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
 
                 String ingrediente = (modeloTabla.getValueAt(i, 1) != null) ? modeloTabla.getValueAt(i, 1).toString() : "";
                 String tipoUso = (modeloTabla.getValueAt(i, 2) != null) ? modeloTabla.getValueAt(i, 2).toString() : "";
-                String cantidad = (modeloTabla.getValueAt(i, 3) != null) ? modeloTabla.getValueAt(i, 3).toString() : "";
 
-                // Si la fila está completamente vacía, la elimina de la tabla y continúa
-                if (idIngrediente == 0 && ingrediente.isEmpty() && tipoUso.isEmpty() && cantidad.isEmpty()) {
+                // Conversión de String a int para la cantidad
+                String cantidadStr = (modeloTabla.getValueAt(i, 3) != null) ? modeloTabla.getValueAt(i, 3).toString() : "0";
+                int cantidad = Integer.parseInt(cantidadStr);
+
+                if (idIngrediente == 0 && ingrediente.isEmpty() && tipoUso.isEmpty() && cantidadStr.isEmpty()) {
                     modeloTabla.removeRow(i);
                     continue;
                 }
@@ -300,15 +301,13 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
                 InventarioModel item = new InventarioModel(idIngrediente, ingrediente, tipoUso, cantidad);
 
                 if (idIngrediente <= 0) {
-                    // Nuevo registro
                     InventarioController.guardarIngrediente(item);
                 } else {
-                    // Registro existente
                     InventarioController.modificarIngrediente(item);
                 }
             } catch (NumberFormatException e) {
                 exito = false;
-                JOptionPane.showMessageDialog(null, "Error de formato en el ID de la fila " + (i + 1));
+                JOptionPane.showMessageDialog(null, "Error: La cantidad de la fila " + (i + 1) + " debe ser un número entero.");
             } catch (Exception ex) {
                 exito = false;
                 JOptionPane.showMessageDialog(null, "Error al procesar la fila " + (i + 1) + ": " + ex.getMessage());
@@ -322,7 +321,6 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
     }
 
     public void buscar() {
-        // Declara y asigna la variable 'terminoABuscar'
         String terminoABuscar = JOptionPane.showInputDialog(null, "Ingrese el término de búsqueda:");
 
         if (terminoABuscar != null && !terminoABuscar.trim().isEmpty()) {
@@ -365,7 +363,10 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             int idIngrediente = (int) tblinventario.getValueAt(filaSeleccionada, 0);
             String ingrediente = tblinventario.getValueAt(filaSeleccionada, 1).toString();
             String tipoUso = tblinventario.getValueAt(filaSeleccionada, 2).toString();
-            String cantidad = tblinventario.getValueAt(filaSeleccionada, 3).toString();
+
+            // Conversión de String a int para la cantidad
+            String cantidadStr = tblinventario.getValueAt(filaSeleccionada, 3).toString();
+            int cantidad = Integer.parseInt(cantidadStr);
 
             InventarioModel ingredienteModificado = new InventarioModel(idIngrediente, ingrediente, tipoUso, cantidad);
             boolean modificado = InventarioController.modificarIngrediente(ingredienteModificado);
@@ -375,7 +376,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Error al modificar el ingrediente.");
             }
-            cargarTablaInventario(); // Recarga la tabla
+            cargarTablaInventario();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error. Asegúrese de que los datos son correctos.");
         }
@@ -383,40 +384,28 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
 
     public void agregar() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblinventario.getModel();
-
-        // Crear una fila con ID nulo o 0, para que se guarde como un nuevo registro
-        Object[] filaVacia = {null, null, null, null};
-
-        // Obtener las columnas del modelo para asegurar el tamaño correcto
-        filaVacia = new Object[modeloTabla.getColumnCount()];
-
+        Object[] filaVacia = new Object[modeloTabla.getColumnCount()];
         modeloTabla.addRow(filaVacia);
     }
 
     public void eliminar() {
         int filaSeleccionada = tblinventario.getSelectedRow();
 
-        // 1. Verifica si hay una fila seleccionada
         if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione un ingrediente para eliminarlo.");
             return;
         }
 
-        // 2. Confirma la acción con el usuario
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este ingrediente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
-                // 3. Obtiene el ID de la fila seleccionada
                 int idIngrediente = (int) tblinventario.getValueAt(filaSeleccionada, 0);
-
-                // 4. Llama al método del controlador para eliminar el registro
                 boolean eliminado = InventarioController.eliminarIngrediente(idIngrediente);
 
-                // 5. Muestra un mensaje y actualiza la tabla
                 if (eliminado) {
                     JOptionPane.showMessageDialog(null, "Ingrediente eliminado exitosamente.");
-                    cargarTablaInventario(); // Recarga la tabla para reflejar el cambio
+                    cargarTablaInventario();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al eliminar el ingrediente de la base de datos.");
                 }
@@ -426,6 +415,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             }
         }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras;

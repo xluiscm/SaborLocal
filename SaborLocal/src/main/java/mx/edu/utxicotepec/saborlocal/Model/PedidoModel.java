@@ -8,6 +8,7 @@ package mx.edu.utxicotepec.saborlocal.Model;
  *
  * @author xidon
  */
+
 public class PedidoModel {
 
     private int idPedido;
@@ -20,6 +21,43 @@ public class PedidoModel {
     private String pastelSeleccionado;
     private String tamanioSeleccionado;
 
+    // CONSTRUCTORES
+    // 1. Constructor para crear un nuevo pedido (sin ID)
+    public PedidoModel(int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
+        this.idCliente = idCliente;
+        this.fechaPedido = fechaPedido;
+        this.estado = estado;
+        this.totalPedido = totalPedido;
+        this.mensaje = mensaje;
+        this.fechaEntregaEstimada = fechaEntregaEstimada;
+        this.pastelSeleccionado = pastelSeleccionado;
+        this.tamanioSeleccionado = tamanioSeleccionado;
+    }
+
+    // 2. Constructor para un pedido existente (con ID)
+    public PedidoModel(int idPedido, int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
+        this.idPedido = idPedido;
+        this.idCliente = idCliente;
+        this.fechaPedido = fechaPedido;
+        this.estado = estado;
+        this.totalPedido = totalPedido;
+        this.mensaje = mensaje;
+        this.fechaEntregaEstimada = fechaEntregaEstimada;
+        this.pastelSeleccionado = pastelSeleccionado;
+        this.tamanioSeleccionado = tamanioSeleccionado;
+    }
+
+    // 3. Constructor para mostrar datos en la tabla (sin totalPedido y idCliente)
+    public PedidoModel(int idPedido, String pastelSeleccionado, String tamanioSeleccionado, String cliente, String mensaje, String fechaEntregaEstimada, String estado) {
+        this.idPedido = idPedido;
+        this.pastelSeleccionado = pastelSeleccionado;
+        this.tamanioSeleccionado = tamanioSeleccionado;
+        this.mensaje = mensaje;
+        this.fechaEntregaEstimada = fechaEntregaEstimada;
+        this.estado = estado;
+    }
+
+    // GETTERS Y SETTERS
     public String getPastelSeleccionado() {
         return pastelSeleccionado;
     }
@@ -91,28 +129,5 @@ public class PedidoModel {
     public void setFechaEntregaEstimada(String fechaEntregaEstimada) {
         this.fechaEntregaEstimada = fechaEntregaEstimada;
     }
-
-    public PedidoModel(int idPedido, int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
-        this.idPedido = idPedido;
-        this.idCliente = idCliente;
-        this.fechaPedido = fechaPedido;
-        this.estado = estado;
-        this.totalPedido = totalPedido;
-        this.mensaje = mensaje;
-        this.fechaEntregaEstimada = fechaEntregaEstimada;
-        this.pastelSeleccionado = pastelSeleccionado;
-        this.tamanioSeleccionado = tamanioSeleccionado;
-    }
-
-    // ➡️ Constructor actualizado que coincide con el código de tu botón
-    public PedidoModel(int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
-        this.idCliente = idCliente;
-        this.fechaPedido = fechaPedido;
-        this.estado = estado;
-        this.totalPedido = totalPedido;
-        this.mensaje = mensaje;
-        this.fechaEntregaEstimada = fechaEntregaEstimada;
-        this.pastelSeleccionado = pastelSeleccionado;
-        this.tamanioSeleccionado = tamanioSeleccionado;
-    }
 }
+

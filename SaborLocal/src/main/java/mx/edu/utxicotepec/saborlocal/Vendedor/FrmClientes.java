@@ -4,19 +4,11 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
-import java.awt.BorderLayout;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
-import mx.edu.utxicotepec.saborlocal.Controllers.UsuriosController;
 import mx.edu.utxicotepec.saborlocal.Model.ClientesModel;
-import mx.edu.utxicotepec.saborlocal.Model.UsuariosModel;
 
 /**
  *
@@ -120,6 +112,7 @@ public class FrmClientes extends javax.swing.JFrame {
         tblclientes.setPreferredSize(new java.awt.Dimension(1200, 400));
         jScrollPane1.setViewportView(tblclientes);
 
+        btnbuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\busqueda.png")); // NOI18N
         btnbuscar.setOpaque(true);
         btnbuscar.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -129,6 +122,7 @@ public class FrmClientes extends javax.swing.JFrame {
             }
         });
 
+        btnmodificar.setBackground(new java.awt.Color(255, 255, 255));
         btnmodificar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Editar.png")); // NOI18N
         btnmodificar.setOpaque(true);
         btnmodificar.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -138,6 +132,7 @@ public class FrmClientes extends javax.swing.JFrame {
             }
         });
 
+        btnguardar.setBackground(new java.awt.Color(255, 255, 255));
         btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\guardar.png")); // NOI18N
         btnguardar.setOpaque(true);
         btnguardar.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -147,6 +142,7 @@ public class FrmClientes extends javax.swing.JFrame {
             }
         });
 
+        btneliminar.setBackground(new java.awt.Color(255, 255, 255));
         btneliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Eliminar.png")); // NOI18N
         btneliminar.setOpaque(true);
         btneliminar.setPreferredSize(new java.awt.Dimension(125, 125));
