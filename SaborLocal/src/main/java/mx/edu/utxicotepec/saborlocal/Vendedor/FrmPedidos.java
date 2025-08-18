@@ -8,9 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Controllers.PedidoController;
-import mx.edu.utxicotepec.saborlocal.Controllers.PedidoPersonalizadoController;
 import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
-import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizadoModel;
 
 /**
  *
@@ -290,18 +288,17 @@ public class FrmPedidos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new FrmPedidos().setVisible(true));
     }
 
-    // Carga los datos de los pedidos normales en la tabla
     private void cargarTablaPedidos() {
         DefaultTableModel modelo = (DefaultTableModel) tblpedido.getModel();
         modelo.setRowCount(0);
         List<PedidoModel> pedidos = PedidoController.mostrarPedidos();
         for (PedidoModel pedido : pedidos) {
-            String nombreCliente = PedidoController.obtenerNombreClientePorId(pedido.getIdCliente());
             modelo.addRow(new Object[]{
                 pedido.getIdPedido(),
                 pedido.getPastelSeleccionado(),
                 pedido.getTamanioSeleccionado(),
-                nombreCliente,
+                pedido.getNombreCliente(), // ✅ directo
+                pedido.getTotalPedido(), // ✅ costo
                 pedido.getMensaje(),
                 pedido.getFechaEntregaEstimada(),
                 pedido.getEstado()
@@ -309,7 +306,7 @@ public class FrmPedidos extends javax.swing.JFrame {
         }
     }
 
-    // Lógica para guardar o actualizar pedidos normales desde la tabla
+// Lógica para guardar o actualizar pedidos normales desde la tabla
     public void guardar() {
         if (tblpedido.isEditing()) {
             tblpedido.getCellEditor().stopCellEditing();
@@ -328,8 +325,16 @@ public class FrmPedidos extends javax.swing.JFrame {
                 String fechaEntrega = (modeloTabla.getValueAt(i, 6) != null) ? modeloTabla.getValueAt(i, 6).toString() : "";
                 String estado = (modeloTabla.getValueAt(i, 7) != null) ? modeloTabla.getValueAt(i, 7).toString() : "";
 
-                int idCliente = PedidoController.obtenerIdClientePorNombre(cliente);
-                PedidoModel pedido = new PedidoModel(idPedido, idCliente, "", estado, costo, mensaje, fechaEntrega, pastel, tamano);
+                PedidoModel pedido = new PedidoModel(
+                        idPedido,
+                        pastel,
+                        tamano,
+                        cliente, // ✅ usamos nombreCliente directo
+                        costo,
+                        mensaje,
+                        fechaEntrega,
+                        estado
+                );
 
                 if (idPedido <= 0) {
                     PedidoController.guardarPedido(pedido);
@@ -344,7 +349,7 @@ public class FrmPedidos extends javax.swing.JFrame {
         cargarTablaPedidos();
     }
 
-    // Lógica para modificar un pedido normal seleccionado
+// Lógica para modificar un pedido normal seleccionado
     public void modificar() {
         int filaSeleccionada = tblpedido.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -356,13 +361,21 @@ public class FrmPedidos extends javax.swing.JFrame {
                 String pastel = (String) tblpedido.getValueAt(filaSeleccionada, 1);
                 String tamano = (String) tblpedido.getValueAt(filaSeleccionada, 2);
                 String cliente = (String) tblpedido.getValueAt(filaSeleccionada, 3);
-                double costo = (double) tblpedido.getValueAt(filaSeleccionada, 4);
+                double costo = Double.parseDouble(tblpedido.getValueAt(filaSeleccionada, 4).toString());
                 String mensaje = (String) tblpedido.getValueAt(filaSeleccionada, 5);
                 String fecha = (String) tblpedido.getValueAt(filaSeleccionada, 6);
                 String estado = (String) tblpedido.getValueAt(filaSeleccionada, 7);
 
-                int idCliente = PedidoController.obtenerIdClientePorNombre(cliente);
-                PedidoModel pedidoModificado = new PedidoModel(idPedido, idCliente, "", estado, costo, mensaje, fecha, pastel, tamano);
+                PedidoModel pedidoModificado = new PedidoModel(
+                        idPedido,
+                        pastel,
+                        tamano,
+                        cliente, // ✅ usamos nombreCliente directo
+                        costo,
+                        mensaje,
+                        fecha,
+                        estado
+                );
 
                 if (PedidoController.modificarPedido(pedidoModificado)) {
                     JOptionPane.showMessageDialog(this, "Pedido normal modificado exitosamente.");
@@ -378,7 +391,7 @@ public class FrmPedidos extends javax.swing.JFrame {
         }
     }
 
-    // Lógica para buscar pedidos normales
+// Lógica para buscar pedidos normales
     public void buscar() {
         String termino = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
         if (termino != null && !termino.trim().isEmpty()) {
@@ -390,7 +403,8 @@ public class FrmPedidos extends javax.swing.JFrame {
                     pedido.getIdPedido(),
                     pedido.getPastelSeleccionado(),
                     pedido.getTamanioSeleccionado(),
-                    PedidoController.obtenerNombreClientePorId(pedido.getIdCliente()),
+                    pedido.getNombreCliente(), // ✅ directo
+                    pedido.getTotalPedido(),
                     pedido.getMensaje(),
                     pedido.getFechaEntregaEstimada(),
                     pedido.getEstado()
@@ -401,7 +415,7 @@ public class FrmPedidos extends javax.swing.JFrame {
         }
     }
 
-    // Lógica para eliminar un pedido normal seleccionado
+// Lógica para eliminar un pedido normal seleccionado
     public void eliminar() {
         int filaSeleccionada = tblpedido.getSelectedRow();
         if (filaSeleccionada != -1) {

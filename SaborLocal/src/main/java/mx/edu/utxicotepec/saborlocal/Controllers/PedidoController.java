@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mx.edu.utxicotepec.saborlocal.Controllers;
 
 import mx.edu.utxicotepec.saborlocal.Conexion.Conexion;
@@ -12,21 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
 
-/**
- *
- * @author xidon
- */
 public class PedidoController {
 
-    /**
-     * Guarda un nuevo pedido y su detalle en la base de datos.
-     *
-     * @param ped El objeto PedidoModel con los datos a guardar.
-     * @return true si se guarda exitosamente, false en caso contrario.
-     */
+    // ========== GUARDAR PEDIDO ==========
     public static boolean guardarPedido(PedidoModel ped) {
         double precioBase = obtenerPrecioPastelDesdeBD(ped.getPastelSeleccionado());
         double precioAdicional = obtenerPrecioAdicionalTamanioDesdeBD(ped.getTamanioSeleccionado());
@@ -53,7 +39,6 @@ public class PedidoController {
 
         } catch (SQLException ex) {
             System.err.println("Error al insertar el pedido: " + ex.getMessage());
-            ex.printStackTrace();
             return false;
         }
 
@@ -64,50 +49,36 @@ public class PedidoController {
                 int idPastel = obtenerIdPorNombre("Pasteles", "nombre", "idPastel", ped.getPastelSeleccionado(), conn);
                 int idTamanio = obtenerIdPorNombre("Tamanios", "nombre", "idTamanio", ped.getTamanioSeleccionado(), conn);
 
-                double precioUnitario = costoTotal;
-
                 psDetalle.setInt(1, idPedido);
                 psDetalle.setInt(2, idPastel);
                 psDetalle.setInt(3, idTamanio);
-                psDetalle.setDouble(4, precioUnitario);
+                psDetalle.setDouble(4, costoTotal);
                 psDetalle.executeUpdate();
                 return true;
             } catch (SQLException ex) {
                 System.err.println("Error al insertar el detalle del pedido: " + ex.getMessage());
-                ex.printStackTrace();
-                // Si el detalle falla, se recomienda eliminar el pedido para evitar inconsistencias
-                // Nota: se necesita un método para eliminar el pedido en caso de falla del detalle
-                eliminarPedido(idPedido);
+                eliminarPedido(idPedido); // rollback manual
                 return false;
             }
         }
         return false;
     }
 
-    /**
-     * Modifica un pedido y su detalle. Se modificó la lógica para también
-     * actualizar la tabla DetallePedido.
-     *
-     * @param ped El objeto PedidoModel con los datos a modificar.
-     * @return true si se modifica exitosamente, false en caso contrario.
-     */
+    // ========== MODIFICAR PEDIDO ==========
     public static boolean modificarPedido(PedidoModel ped) {
         String sqlPedido = "UPDATE pedidos SET idCliente = ?, estado = ?, totalPedido = ?, mensaje = ?, fechaEntregaEstimada = ? WHERE idPedido = ?";
         String sqlDetalle = "UPDATE DetallePedido SET idPastel = ?, idTamanio = ?, precioUnitario = ? WHERE idPedido = ?";
 
         try (Connection con = Conexion.obtenerConexion()) {
-            con.setAutoCommit(false); // Inicia una transacción
+            con.setAutoCommit(false);
 
-            // Calcular el nuevo costo
             double precioBase = obtenerPrecioPastelDesdeBD(ped.getPastelSeleccionado());
             double precioAdicional = obtenerPrecioAdicionalTamanioDesdeBD(ped.getTamanioSeleccionado());
             double costoTotal = precioBase + precioAdicional;
 
-            // Obtener los IDs de pastel y tamaño
             int idPastel = obtenerIdPorNombre("Pasteles", "nombre", "idPastel", ped.getPastelSeleccionado(), con);
             int idTamanio = obtenerIdPorNombre("Tamanios", "nombre", "idTamanio", ped.getTamanioSeleccionado(), con);
 
-            // 1. Modificar la tabla 'pedidos'
             try (PreparedStatement psPedido = con.prepareStatement(sqlPedido)) {
                 psPedido.setInt(1, ped.getIdCliente());
                 psPedido.setString(2, ped.getEstado());
@@ -118,7 +89,6 @@ public class PedidoController {
                 psPedido.executeUpdate();
             }
 
-            // 2. Modificar la tabla 'DetallePedido'
             try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle)) {
                 psDetalle.setInt(1, idPastel);
                 psDetalle.setInt(2, idTamanio);
@@ -127,70 +97,50 @@ public class PedidoController {
                 psDetalle.executeUpdate();
             }
 
-            con.commit(); // Confirma los cambios si todo es exitoso
+            con.commit();
             return true;
 
         } catch (SQLException ex) {
-            try (Connection con = Conexion.obtenerConexion()) {
-                con.rollback(); // Deshace los cambios si hay un error
-            } catch (SQLException e) {
-                System.err.println("Error en rollback: " + e.getMessage());
-            }
             System.err.println("Error al modificar pedido: " + ex.getMessage());
             return false;
         }
     }
 
-    /**
-     * Elimina un pedido y su detalle de la base de datos. Es necesario eliminar
-     * primero el detalle debido a las restricciones de clave foránea.
-     *
-     * @param id El ID del pedido a eliminar.
-     * @return true si se elimina exitosamente, false en caso contrario.
-     */
+    // ========== ELIMINAR PEDIDO ==========
     public static boolean eliminarPedido(int id) {
         String sqlDetalle = "DELETE FROM DetallePedido WHERE idPedido = ?";
         String sqlPedido = "DELETE FROM pedidos WHERE idPedido = ?";
 
         try (Connection con = Conexion.obtenerConexion()) {
-            con.setAutoCommit(false); // Inicia una transacción
+            con.setAutoCommit(false);
 
-            // 1. Eliminar el detalle del pedido
             try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle)) {
                 psDetalle.setInt(1, id);
                 psDetalle.executeUpdate();
             }
 
-            // 2. Eliminar el pedido
             try (PreparedStatement psPedido = con.prepareStatement(sqlPedido)) {
                 psPedido.setInt(1, id);
-                int filasAfectadas = psPedido.executeUpdate();
-                if (filasAfectadas > 0) {
-                    con.commit(); // Confirma la eliminación
+                int filas = psPedido.executeUpdate();
+                if (filas > 0) {
+                    con.commit();
                     return true;
                 }
             }
 
-            con.rollback(); // Si algo falla, se deshace todo
+            con.rollback();
             return false;
         } catch (SQLException ex) {
             System.err.println("Error al eliminar pedido: " + ex.getMessage());
-            ex.printStackTrace();
             return false;
         }
     }
 
-    /**
-     * Busca pedidos en la base de datos usando un término y devuelve una lista
-     * de PedidoModel. Se corrigió la consulta SQL para usar JOIN y buscar en
-     * las tablas correctas.
-     *
-     * @param termino El término de búsqueda.
-     * @return Una lista de PedidoModel que coinciden con el término.
-     */
+    // ========== BUSCAR PEDIDOS ==========
     public static List<PedidoModel> buscarPedidosPorTermino(String termino) {
         List<PedidoModel> listaPedidos = new ArrayList<>();
-        String sql = "SELECT pe.idPedido, p.nombre AS pastel, t.nombre AS tamanio, c.nombre AS cliente, pe.mensaje, pe.fechaEntregaEstimada, pe.estado "
+        String sql = "SELECT pe.idPedido, p.nombre AS pastel, t.nombre AS tamanio, c.nombre AS cliente, " // <-- nombre cliente
+                + "pe.totalPedido, pe.mensaje, pe.fechaEntregaEstimada, pe.estado "
                 + "FROM pedidos AS pe "
                 + "JOIN DetallePedido AS dp ON pe.idPedido = dp.idPedido "
                 + "JOIN Pasteles AS p ON dp.idPastel = p.idPastel "
@@ -199,12 +149,10 @@ public class PedidoController {
                 + "WHERE p.nombre LIKE ? OR t.nombre LIKE ? OR c.nombre LIKE ? OR pe.estado LIKE ?";
 
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-
             String terminoBusqueda = "%" + termino + "%";
-            ps.setString(1, terminoBusqueda);
-            ps.setString(2, terminoBusqueda);
-            ps.setString(3, terminoBusqueda);
-            ps.setString(4, terminoBusqueda);
+            for (int i = 1; i <= 4; i++) {
+                ps.setString(i, terminoBusqueda);
+            }
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -212,7 +160,8 @@ public class PedidoController {
                             rs.getInt("idPedido"),
                             rs.getString("pastel"),
                             rs.getString("tamanio"),
-                            rs.getString("cliente"),
+                            rs.getString("cliente"), // nombre cliente
+                            rs.getDouble("totalPedido"), // 🔹 faltaba este
                             rs.getString("mensaje"),
                             rs.getString("fechaEntregaEstimada"),
                             rs.getString("estado")
@@ -226,26 +175,26 @@ public class PedidoController {
         return listaPedidos;
     }
 
-    /**
-     * Obtiene todos los pedidos y los devuelve como una lista de PedidoModel.
-     *
-     * @return Una lista de PedidoModel.
-     */
+    // ========== MOSTRAR PEDIDOS ==========
     public static List<PedidoModel> mostrarPedidos() {
         List<PedidoModel> listaPedidos = new ArrayList<>();
-        String sql = "SELECT pe.idPedido, p.nombre AS pastel, t.nombre AS tamanio, c.nombre AS cliente, pe.mensaje, pe.fechaEntregaEstimada, pe.estado "
+        String sql = "SELECT pe.idPedido, p.nombre AS pastel, t.nombre AS tamanio, c.nombre AS cliente, "
+                + "pe.totalPedido, pe.mensaje, pe.fechaEntregaEstimada, pe.estado "
                 + "FROM pedidos AS pe "
                 + "JOIN DetallePedido AS dp ON pe.idPedido = dp.idPedido "
                 + "JOIN Pasteles AS p ON dp.idPastel = p.idPastel "
                 + "JOIN Tamanios AS t ON dp.idTamanio = t.idTamanio "
                 + "JOIN Clientes AS c ON pe.idCliente = c.idCliente";
+
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 PedidoModel pedido = new PedidoModel(
                         rs.getInt("idPedido"),
                         rs.getString("pastel"),
                         rs.getString("tamanio"),
                         rs.getString("cliente"),
+                        rs.getDouble("totalPedido"),
                         rs.getString("mensaje"),
                         rs.getString("fechaEntregaEstimada"),
                         rs.getString("estado")
@@ -258,7 +207,7 @@ public class PedidoController {
         return listaPedidos;
     }
 
-    // Métodos auxiliares
+    // ========== MÉTODOS AUXILIARES ==========
     public static double obtenerPrecioPastelDesdeBD(String nombrePastel) {
         String sql = "SELECT precioBase FROM Pasteles WHERE nombre = ?";
         double precio = 0.0;
@@ -271,7 +220,6 @@ public class PedidoController {
             }
         } catch (SQLException ex) {
             System.err.println("Error al obtener el precio del pastel: " + ex.getMessage());
-            ex.printStackTrace();
         }
         return precio;
     }
@@ -288,7 +236,6 @@ public class PedidoController {
             }
         } catch (SQLException ex) {
             System.err.println("Error al obtener el precio adicional por tamaño: " + ex.getMessage());
-            ex.printStackTrace();
         }
         return precioAdicional;
     }

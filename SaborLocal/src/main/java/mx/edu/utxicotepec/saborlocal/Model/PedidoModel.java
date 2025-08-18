@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mx.edu.utxicotepec.saborlocal.Model;
-
-/**
- *
- * @author xidon
- */
 
 public class PedidoModel {
 
     private int idPedido;
     private int idCliente;
+    private String nombreCliente;   // 🔹 nuevo campo
     private String fechaPedido;
     private String estado;
     private double totalPedido;
@@ -21,7 +13,6 @@ public class PedidoModel {
     private String pastelSeleccionado;
     private String tamanioSeleccionado;
 
-    // CONSTRUCTORES
     // 1. Constructor para crear un nuevo pedido (sin ID)
     public PedidoModel(int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
         this.idCliente = idCliente;
@@ -34,10 +25,11 @@ public class PedidoModel {
         this.tamanioSeleccionado = tamanioSeleccionado;
     }
 
-    // 2. Constructor para un pedido existente (con ID)
-    public PedidoModel(int idPedido, int idCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
+    // 2. Constructor para un pedido existente (con ID y nombre cliente)
+    public PedidoModel(int idPedido, int idCliente, String nombreCliente, String fechaPedido, String estado, double totalPedido, String mensaje, String fechaEntregaEstimada, String pastelSeleccionado, String tamanioSeleccionado) {
         this.idPedido = idPedido;
         this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
         this.totalPedido = totalPedido;
@@ -47,33 +39,19 @@ public class PedidoModel {
         this.tamanioSeleccionado = tamanioSeleccionado;
     }
 
-    // 3. Constructor para mostrar datos en la tabla (sin totalPedido y idCliente)
-    public PedidoModel(int idPedido, String pastelSeleccionado, String tamanioSeleccionado, String cliente, String mensaje, String fechaEntregaEstimada, String estado) {
+    // 3. Constructor simplificado para mostrar datos en tabla
+    public PedidoModel(int idPedido, String pastelSeleccionado, String tamanioSeleccionado, String nombreCliente, double totalPedido, String mensaje, String fechaEntregaEstimada, String estado) {
         this.idPedido = idPedido;
         this.pastelSeleccionado = pastelSeleccionado;
         this.tamanioSeleccionado = tamanioSeleccionado;
+        this.nombreCliente = nombreCliente;
+        this.totalPedido = totalPedido;
         this.mensaje = mensaje;
         this.fechaEntregaEstimada = fechaEntregaEstimada;
         this.estado = estado;
     }
 
     // GETTERS Y SETTERS
-    public String getPastelSeleccionado() {
-        return pastelSeleccionado;
-    }
-
-    public void setPastelSeleccionado(String pastelSeleccionado) {
-        this.pastelSeleccionado = pastelSeleccionado;
-    }
-
-    public String getTamanioSeleccionado() {
-        return tamanioSeleccionado;
-    }
-
-    public void setTamanioSeleccionado(String tamanioSeleccionado) {
-        this.tamanioSeleccionado = tamanioSeleccionado;
-    }
-
     public int getIdPedido() {
         return idPedido;
     }
@@ -88,6 +66,14 @@ public class PedidoModel {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public String getFechaPedido() {
@@ -129,5 +115,20 @@ public class PedidoModel {
     public void setFechaEntregaEstimada(String fechaEntregaEstimada) {
         this.fechaEntregaEstimada = fechaEntregaEstimada;
     }
-}
 
+    public String getPastelSeleccionado() {
+        return pastelSeleccionado;
+    }
+
+    public void setPastelSeleccionado(String pastelSeleccionado) {
+        this.pastelSeleccionado = pastelSeleccionado;
+    }
+
+    public String getTamanioSeleccionado() {
+        return tamanioSeleccionado;
+    }
+
+    public void setTamanioSeleccionado(String tamanioSeleccionado) {
+        this.tamanioSeleccionado = tamanioSeleccionado;
+    }
+}
