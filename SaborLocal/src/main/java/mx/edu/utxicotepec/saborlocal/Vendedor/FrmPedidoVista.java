@@ -279,7 +279,6 @@ public class FrmPedidoVista extends javax.swing.JFrame {
 
     private void btnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatrasActionPerformed
         // TODO add your handling code here:
-        //Boton de funcion para ir nuevamente a la pantalla del vendedor
         FrmPastelPersonalizado2 frmvendedor = new FrmPastelPersonalizado2();
         frmvendedor.setVisible(true);
         this.dispose();

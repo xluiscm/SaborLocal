@@ -397,11 +397,11 @@ public class FrmRegistro extends javax.swing.JFrame {
             String mes = txtmes.getText().trim();
             String dia = txtdia.getText().trim();
 
-            // Reemplaza esto con el ID real del usuario que ha iniciado sesión
+            // Reemplaza la ID real del usuario que ha iniciado sesión
             int idUsuarioActual = 1;
 
             // 2. Validar que los campos obligatorios no estén vacíos.
-            if (nombre.isEmpty() || apellidoPaterno.isEmpty() || telefono.isEmpty() || edadStr.isEmpty() || anio.isEmpty() || mes.isEmpty() || dia.isEmpty()) {
+            if (nombre.isEmpty() || apellidoPaterno.isEmpty() || apellidoMaterno.isEmpty() ||direccion.isEmpty() || telefono.isEmpty() || edadStr.isEmpty() || anio.isEmpty() || mes.isEmpty() || dia.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos obligatorios.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -433,7 +433,6 @@ public class FrmRegistro extends javax.swing.JFrame {
                 return;
             }
 
-            // 6. Crear un objeto del modelo con los datos validados.
             ClientesModel cliente = new ClientesModel(
                     nombre,
                     apellidoPaterno,
@@ -446,7 +445,7 @@ public class FrmRegistro extends javax.swing.JFrame {
                     idUsuarioActual
             );
 
-            // 7. Llamar al controlador para guardar el cliente.
+            // 7. Llama al controlador para guardar el cliente.
             boolean guardadoExitoso = ClientesController.guardarCliente(cliente);
 
             if (guardadoExitoso) {
@@ -483,7 +482,7 @@ public class FrmRegistro extends javax.swing.JFrame {
     }
 
     public void limitarSoloTexto() {
-        // KeyListener para solo permitir letras y hasta 2 espacios
+        // KeyListener para que solo permita letras y hasta 2 espacios
         java.awt.event.KeyAdapter letrasYEspaciosAdapter = new java.awt.event.KeyAdapter() {
             @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -496,7 +495,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
                 // Permite letras, un máximo de 2 espacios y la tecla de retroceso
                 if (!Character.isLetter(c) && c != ' ' && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
-                    evt.consume(); // Ignora si no es letra, espacio o backspace
+                    evt.consume(); // Ignora si no es letra, espacio
                 } else if (c == ' ' && espacios >= 2) {
                     evt.consume(); // Ignora si ya hay 2 espacios y se intenta escribir otro
                 }
@@ -516,14 +515,14 @@ public class FrmRegistro extends javax.swing.JFrame {
 
                 // Permite letras, dígitos, un máximo de 2 espacios y la tecla de retroceso
                 if (!Character.isLetterOrDigit(c) && c != ' ' && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
-                    evt.consume(); // Ignora si no es letra, número, espacio o backspace
+                    evt.consume(); // Ignora si no es letra, número, espacio
                 } else if (c == ' ' && espacios >= 2) {
                     evt.consume(); // Ignora si ya hay 2 espacios y se intenta escribir otro
                 }
             }
         };
 
-        // KeyListener para solo permitir números (como edad, teléfono, etc.)
+        // KeyListener para solo permitir números (como edad, teléfono)
         java.awt.event.KeyAdapter soloNumerosAdapter = new java.awt.event.KeyAdapter() {
             @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {

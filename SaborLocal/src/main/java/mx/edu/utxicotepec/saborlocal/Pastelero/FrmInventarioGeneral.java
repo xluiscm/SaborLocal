@@ -4,15 +4,9 @@
  */
 package mx.edu.utxicotepec.saborlocal.Pastelero;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import mx.edu.utxicotepec.saborlocal.Conexion.Conexion;
 import mx.edu.utxicotepec.saborlocal.Controllers.InventarioController;
 import mx.edu.utxicotepec.saborlocal.Model.InventarioModel;
 import mx.edu.utxicotepec.saborlocal.Pastelero.FrmMenuPastelero;
@@ -84,6 +78,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblinventario);
 
+        btnguardar.setForeground(new java.awt.Color(255, 255, 255));
         btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\guardar.png")); // NOI18N
         btnguardar.setOpaque(true);
         btnguardar.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -93,6 +88,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             }
         });
 
+        btnmodificar.setForeground(new java.awt.Color(255, 255, 255));
         btnmodificar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Editar.png")); // NOI18N
         btnmodificar.setOpaque(true);
         btnmodificar.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -102,6 +98,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             }
         });
 
+        btnbuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\busqueda.png")); // NOI18N
         btnbuscar.setOpaque(true);
         btnbuscar.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -111,6 +108,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             }
         });
 
+        btnguardar1.setForeground(new java.awt.Color(255, 255, 255));
         btnguardar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Agrgar.png")); // NOI18N
         btnguardar1.setOpaque(true);
         btnguardar1.setPreferredSize(new java.awt.Dimension(125, 125));
@@ -120,6 +118,7 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
             }
         });
 
+        btneliminar1.setForeground(new java.awt.Color(255, 255, 255));
         btneliminar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Eliminar.png")); // NOI18N
         btneliminar1.setOpaque(true);
         btneliminar1.setPreferredSize(new java.awt.Dimension(125, 125));

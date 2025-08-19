@@ -256,7 +256,6 @@ public class FrmPedidoPer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FrmPedidoPer().setVisible(true));
     }
-    // Carga los datos de los pedidos personalizados en la tabla
 
 // Carga los datos de los pedidos personalizados en la tabla
     private void cargarTablaPedidosPersonalizados() {
@@ -278,8 +277,8 @@ public class FrmPedidoPer extends javax.swing.JFrame {
                 nombreTamanio,
                 pedidoPer.getDecoracion(),
                 pedidoPer.getOcasion(),
-                pedidoPer.getIngredientes(), // Agregado el campo ingredientes
-                pedidoPer.getEstado(), // Agregado el campo estado
+                pedidoPer.getIngredientes(),
+                pedidoPer.getEstado(),
                 nombreCliente
             });
         }
@@ -367,11 +366,11 @@ public class FrmPedidoPer extends javax.swing.JFrame {
             DefaultTableModel modeloTabla = (DefaultTableModel) tblpedidoper.getModel();
             modeloTabla.setRowCount(0);
             for (PedidoPersonalizadoModel pedidoPer : resultados) {
-                // CORRECCIÓN: Llama al método desde la clase ClientesController
+
                 String nombreCliente = ClientesController.obtenerNombreClientePorId(pedidoPer.getIdCliente());
 
                 String nombreTamanio;
-                // Maneja el caso en que el campo tamanio no sea un número válido
+
                 try {
                     nombreTamanio = PedidoPersonalizadoController.obtenerNombreTamanioPorId(Double.parseDouble(pedidoPer.getTamanio()));
                 } catch (NumberFormatException e) {
@@ -387,8 +386,8 @@ public class FrmPedidoPer extends javax.swing.JFrame {
                     nombreTamanio,
                     pedidoPer.getDecoracion(),
                     pedidoPer.getOcasion(),
-                    pedidoPer.getIngredientes(), // Campo agregado
-                    pedidoPer.getEstado(), // Campo agregado
+                    pedidoPer.getIngredientes(),
+                    pedidoPer.getEstado(),
                     nombreCliente
                 });
             }

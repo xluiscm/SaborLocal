@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.SwingUtilities;
 import mx.edu.utxicotepec.saborlocal.Logueo.FrmInicio;
-import mx.edu.utxicotepec.saborlocal.Logueo.FrmLogueo;
 
 /**
  *
@@ -23,6 +22,7 @@ import mx.edu.utxicotepec.saborlocal.Logueo.FrmLogueo;
 public class FrmMenuPastelero extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMenuPastelero.class.getName());
+    
 
     /**
      * Creates new form FrmMenuPastelero
@@ -266,7 +266,7 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
                 lupaLabel.setAlignmentX(0.0f); // Ajusta la posición de la lupa
                 lupaLabel.setAlignmentY(0.0f); // Ajusta la posición de la lupa
 
-                // Agrega los componentes al panel. El orden es crucial para la superposición.
+                // Agrega los componentes al panel.
                 panelPrincipal.add(fondoLabel);
                 panelPrincipal.add(lupaLabel);
 
