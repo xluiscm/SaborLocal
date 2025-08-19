@@ -396,7 +396,10 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
         }
 
         // 6. Cargar Tamaños
-        List<String> tamanos = PedidoPersonalizadoController.obtenerValoresUnicos("tamanio");
+        // ✅ Aquí está el error. Estás llamando al método incorrecto.
+        // List<String> tamanos = PedidoPersonalizadoController.obtenerValoresUnicos("tamanio");
+        // ✅ La solución es crear un método nuevo y llamarlo aquí.
+        List<String> tamanos = PedidoPersonalizadoController.obtenerNombresTamanios();
         for (String tamano : tamanos) {
             combotama.addItem(tamano);
         }

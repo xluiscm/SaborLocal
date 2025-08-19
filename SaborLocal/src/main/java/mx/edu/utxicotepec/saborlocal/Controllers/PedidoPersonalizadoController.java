@@ -39,160 +39,295 @@ public class PedidoPersonalizadoController {
         }
         return valores;
     }
+    // ✅ Nuevo método para obtener los nombres de los tamaños desde la tabla 'tamanios'
 
-    // ✅ Method to save a new order
-    public static boolean guardarPedido(PedidoPersonalizadoModel pedido) {
-        String sql = "INSERT INTO pedido_personalizado (IdCliente, ocasion, tipo_pan, sabor, cubierta, forma, tamanio, decoracion, ingredientes) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, pedido.getIdCliente());
-            ps.setString(2, pedido.getOcasion());
-            ps.setString(3, pedido.getTipoPan());
-            ps.setString(4, pedido.getSabor());
-            ps.setString(5, pedido.getCubierta());
-            ps.setString(6, pedido.getForma());
-            ps.setString(7, pedido.getTamanio());
-            ps.setString(8, pedido.getDecoracion());
-            ps.setString(9, pedido.getIngredientes());
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
-        } catch (SQLException ex) {
-            System.err.println("Error al guardar pedido personalizado: " + ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    // ✅ Method to modify an existing order
-    public static boolean modificarPedido(PedidoPersonalizadoModel pedido) {
-        String sql = "UPDATE pedido_personalizado SET IdCliente = ?, ocasion = ?, tipo_pan = ?, sabor = ?, cubierta = ?, forma = ?, tamanio = ?, decoracion = ?, ingredientes = ? WHERE IdPedido = ?";
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, pedido.getIdCliente());
-            ps.setString(2, pedido.getOcasion());
-            ps.setString(3, pedido.getTipoPan());
-            ps.setString(4, pedido.getSabor());
-            ps.setString(5, pedido.getCubierta());
-            ps.setString(6, pedido.getForma());
-            ps.setString(7, pedido.getTamanio());
-            ps.setString(8, pedido.getDecoracion());
-            ps.setString(9, pedido.getIngredientes());
-            ps.setInt(10, pedido.getIdPedido());
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
-        } catch (SQLException ex) {
-            System.err.println("Error al modificar pedido personalizado: " + ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    // ✅ Method to delete an order
-    public static boolean eliminarPedido(int id) {
-        String sql = "DELETE FROM pedido_personalizado WHERE IdPedido = ?";
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
-        } catch (SQLException ex) {
-            System.err.println("Error al eliminar pedido personalizado: " + ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    // ✅ Method to show all orders
-    public static List<PedidoPersonalizadoModel> mostrarPedidos() {
-        List<PedidoPersonalizadoModel> listaPedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido_personalizado";
+    public static List<String> obtenerNombresTamanios() {
+        List<String> nombres = new ArrayList<>();
+        String sql = "SELECT nombre FROM tamanios"; // ✅ ¡Esta es la consulta correcta!
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                PedidoPersonalizadoModel pedido = new PedidoPersonalizadoModel(
-                        rs.getInt("IdPedido"),
-                        rs.getInt("IdCliente"),
-                        rs.getString("ocasion"),
-                        rs.getString("tipo_pan"),
-                        rs.getString("sabor"),
-                        rs.getString("cubierta"),
-                        rs.getString("forma"),
-                        rs.getString("tamanio"),
-                        rs.getString("decoracion"),
-                        rs.getString("ingredientes")
-                );
-                listaPedidos.add(pedido);
+                nombres.add(rs.getString("nombre"));
             }
         } catch (SQLException ex) {
-            System.err.println("Error al mostrar pedidos personalizados: " + ex.getMessage());
+            System.err.println("Error al obtener nombres de tamaños: " + ex.getMessage());
         }
-        return listaPedidos;
+        return nombres;
     }
 
-    // ✅ Method to search for orders by a term
+    public static boolean guardarPedido(PedidoPersonalizadoModel pedido) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        String sql = "INSERT INTO pedido_personalizado (IdCliente, ocasion, tipo_pan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
+
+            double tamanioNumerico = convertirTamanio(pedido.getTamanio());
+
+            stmt.setInt(1, pedido.getIdCliente());
+            stmt.setString(2, pedido.getOcasion());
+            stmt.setString(3, pedido.getTipoPan());
+            stmt.setString(4, pedido.getSabor());
+            stmt.setString(5, pedido.getCubierta());
+            stmt.setString(6, pedido.getForma());
+            stmt.setDouble(7, tamanioNumerico);
+            stmt.setString(8, pedido.getDecoracion());
+            stmt.setString(9, pedido.getIngredientes());
+            stmt.setString(10, pedido.getEstado());
+
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al guardar el pedido: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+
+    public static boolean modificarPedido(PedidoPersonalizadoModel pedido) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        String sql = "UPDATE pedido_personalizado SET IdCliente=?, ocasion=?, tipo_pan=?, sabor=?, cubierta=?, forma=?, tamanio=?, decoracion=?, ingredientes=?, estado=? WHERE IdPedido=?";
+
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
+
+            double tamanioNumerico = convertirTamanio(pedido.getTamanio());
+
+            stmt.setInt(1, pedido.getIdCliente());
+            stmt.setString(2, pedido.getOcasion());
+            stmt.setString(3, pedido.getTipoPan());
+            stmt.setString(4, pedido.getSabor());
+            stmt.setString(5, pedido.getCubierta());
+            stmt.setString(6, pedido.getForma());
+            stmt.setDouble(7, tamanioNumerico);
+            stmt.setString(8, pedido.getDecoracion());
+            stmt.setString(9, pedido.getIngredientes());
+            stmt.setString(10, pedido.getEstado());
+            stmt.setInt(11, pedido.getIdPedido());
+
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al modificar el pedido: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+
+    public static List<PedidoPersonalizadoModel> mostrarPedidos() {
+        List<PedidoPersonalizadoModel> pedidos = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM pedido_personalizado";
+
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                PedidoPersonalizadoModel pedido = new PedidoPersonalizadoModel();
+                pedido.setIdPedido(rs.getInt("IdPedido"));
+                pedido.setIdCliente(rs.getInt("IdCliente"));
+                pedido.setOcasion(rs.getString("ocasion"));
+                pedido.setTipoPan(rs.getString("tipo_pan"));
+                pedido.setSabor(rs.getString("sabor"));
+                pedido.setCubierta(rs.getString("cubierta"));
+                pedido.setForma(rs.getString("forma"));
+                pedido.setTamanio(rs.getString("tamanio"));
+                pedido.setDecoracion(rs.getString("decoracion"));
+                pedido.setIngredientes(rs.getString("ingredientes"));
+                pedido.setEstado(rs.getString("estado"));
+                pedidos.add(pedido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al mostrar los pedidos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+        return pedidos;
+    }
+
+    public static boolean eliminarPedido(int idPedido) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        String sql = "DELETE FROM pedido_personalizado WHERE IdPedido = ?";
+
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idPedido);
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el pedido: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+
     public static List<PedidoPersonalizadoModel> buscarPedidosPorTermino(String termino) {
-        List<PedidoPersonalizadoModel> listaPedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido_personalizado "
-                + "WHERE ocasion LIKE ? OR tipo_pan LIKE ? OR sabor LIKE ? OR cubierta LIKE ? OR forma LIKE ? OR tamanio LIKE ? OR decoracion LIKE ? OR ingredientes LIKE ?";
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        List<PedidoPersonalizadoModel> resultados = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM pedido_personalizado WHERE IdPedido LIKE ? OR IdCliente LIKE ? OR ocasion LIKE ? OR tipo_pan LIKE ? OR sabor LIKE ? OR cubierta LIKE ? OR forma LIKE ? OR tamanio LIKE ? OR decoracion LIKE ? OR ingredientes LIKE ? OR estado LIKE ?";
+
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
             String terminoBusqueda = "%" + termino + "%";
-            ps.setString(1, terminoBusqueda);
-            ps.setString(2, terminoBusqueda);
-            ps.setString(3, terminoBusqueda);
-            ps.setString(4, terminoBusqueda);
-            ps.setString(5, terminoBusqueda);
-            ps.setString(6, terminoBusqueda);
-            ps.setString(7, terminoBusqueda);
-            ps.setString(8, terminoBusqueda);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    PedidoPersonalizadoModel pedido = new PedidoPersonalizadoModel(
-                            rs.getInt("IdPedido"),
-                            rs.getInt("IdCliente"),
-                            rs.getString("ocasion"),
-                            rs.getString("tipo_pan"),
-                            rs.getString("sabor"),
-                            rs.getString("cubierta"),
-                            rs.getString("forma"),
-                            rs.getString("tamanio"),
-                            rs.getString("decoracion"),
-                            rs.getString("ingredientes")
-                    );
-                    listaPedidos.add(pedido);
-                }
+            for (int i = 1; i <= 11; i++) {
+                stmt.setString(i, terminoBusqueda);
             }
-        } catch (SQLException ex) {
-            System.err.println("Error al buscar pedidos personalizados: " + ex.getMessage());
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                PedidoPersonalizadoModel pedido = new PedidoPersonalizadoModel();
+                pedido.setIdPedido(rs.getInt("IdPedido"));
+                pedido.setIdCliente(rs.getInt("IdCliente"));
+                pedido.setOcasion(rs.getString("ocasion"));
+                pedido.setTipoPan(rs.getString("tipo_pan"));
+                pedido.setSabor(rs.getString("sabor"));
+                pedido.setCubierta(rs.getString("cubierta"));
+                pedido.setForma(rs.getString("forma"));
+                pedido.setTamanio(rs.getString("tamanio"));
+                pedido.setDecoracion(rs.getString("decoracion"));
+                pedido.setIngredientes(rs.getString("ingredientes"));
+                pedido.setEstado(rs.getString("estado"));
+                resultados.add(pedido);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar pedidos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
         }
-        return listaPedidos;
+        return resultados;
     }
 
-    // ✅ Helper method to get the client ID by name
-    public static int obtenerIdClientePorNombre(String nombreCliente) {
+    public static double convertirTamanio(String tamanioStr) {
+        if (tamanioStr == null) {
+            return 0.0;
+        }
+        switch (tamanioStr.toLowerCase()) {
+            case "chico":
+                return 1.0;
+            case "mediano":
+                return 2.0;
+            case "grande":
+                return 3.0;
+            default:
+                try {
+                    return Double.parseDouble(tamanioStr);
+                } catch (NumberFormatException e) {
+                    return 0.0;
+                }
+        }
+    }
+
+    public static String obtenerNombreTamanioPorId(double idTamanio) {
+        if (idTamanio == 1.0) {
+            return "Chico";
+        }
+        if (idTamanio == 2.0) {
+            return "Mediano";
+        }
+        if (idTamanio == 3.0) {
+            return "Grande";
+        }
+        return "Desconocido";
+    }
+
+    public static int obtenerIdClientePorNombre(String nombre) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         String sql = "SELECT IdCliente FROM clientes WHERE nombre = ?";
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, nombreCliente);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("IdCliente");
-                }
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error al obtener el ID del cliente: " + ex.getMessage());
-        }
-        return -1;
-    }
 
-    // ✅ Helper method to get the client name by ID
-    public static String obtenerNombreClientePorId(int idCliente) {
-        String sql = "SELECT nombre FROM clientes WHERE IdCliente = ?";
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, idCliente);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("nombre");
-                }
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nombre);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("IdCliente");
             }
-        } catch (SQLException ex) {
-            System.err.println("Error al obtener el nombre del cliente: " + ex.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el ID del cliente: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
         }
-        return null;
+        return 0;
     }
 }

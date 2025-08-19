@@ -263,7 +263,7 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
 
     private void btnsiguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguiente2ActionPerformed
         // TODO add your handling code here:
-        FrmPedidoPer frmpedd = new FrmPedidoPer();
+        FrmPedidoPer2 frmpedd = new FrmPedidoPer2();
         frmpedd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnsiguiente2ActionPerformed

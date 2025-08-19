@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mx.edu.utxicotepec.saborlocal.Model;
 
 public class PedidoPersonalizadoModel {
@@ -16,9 +12,12 @@ public class PedidoPersonalizadoModel {
     private String tamanio;
     private String decoracion;
     private String ingredientes;
+    private String estado;
 
-    // Constructor para un pedido existente (con ID)
-    public PedidoPersonalizadoModel(int idPedido, int idCliente, String ocasion, String tipoPan, String sabor, String cubierta, String forma, String tamanio, String decoracion, String ingredientes) {
+    public PedidoPersonalizadoModel() {
+    }
+
+    public PedidoPersonalizadoModel(int idPedido, int idCliente, String ocasion, String tipoPan, String sabor, String cubierta, String forma, String tamanio, String decoracion, String ingredientes, String estado) {
         this.idPedido = idPedido;
         this.idCliente = idCliente;
         this.ocasion = ocasion;
@@ -29,22 +28,10 @@ public class PedidoPersonalizadoModel {
         this.tamanio = tamanio;
         this.decoracion = decoracion;
         this.ingredientes = ingredientes;
+        this.estado = estado;
     }
 
-    // Constructor para un nuevo pedido
-    public PedidoPersonalizadoModel(int idCliente, String ocasion, String tipoPan, String sabor, String cubierta, String forma, String tamanio, String decoracion, String ingredientes) {
-        this.idCliente = idCliente;
-        this.ocasion = ocasion;
-        this.tipoPan = tipoPan;
-        this.sabor = sabor;
-        this.cubierta = cubierta;
-        this.forma = forma;
-        this.tamanio = tamanio;
-        this.decoracion = decoracion;
-        this.ingredientes = ingredientes;
-    }
-
-    // --- Getters y Setters ---
+    // Getters y Setters
     public int getIdPedido() {
         return idPedido;
     }
@@ -125,7 +112,11 @@ public class PedidoPersonalizadoModel {
         this.ingredientes = ingredientes;
     }
 
-    public PedidoPersonalizadoModel() {
+    public String getEstado() {
+        return estado;
+    }
 
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

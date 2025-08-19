@@ -7,6 +7,7 @@ package mx.edu.utxicotepec.saborlocal.Vendedor;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import mx.edu.utxicotepec.saborlocal.Controllers.ClientesController;
 import mx.edu.utxicotepec.saborlocal.Controllers.PedidoPersonalizadoController;
 import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizadoModel;
 
@@ -257,28 +258,33 @@ public class FrmPedidoPer extends javax.swing.JFrame {
     }
     // Carga los datos de los pedidos personalizados en la tabla
 
+// Carga los datos de los pedidos personalizados en la tabla
     private void cargarTablaPedidosPersonalizados() {
         DefaultTableModel modelo = (DefaultTableModel) tblpedidoper.getModel();
         modelo.setRowCount(0);
         List<PedidoPersonalizadoModel> pedidosPer = PedidoPersonalizadoController.mostrarPedidos();
         for (PedidoPersonalizadoModel pedidoPer : pedidosPer) {
-            String nombreCliente = PedidoPersonalizadoController.obtenerNombreClientePorId(pedidoPer.getIdCliente());
+            String nombreCliente = ClientesController.obtenerNombreClientePorId(pedidoPer.getIdCliente());
+
+            // Convierte el valor numérico del tamaño a su nombre
+            String nombreTamanio = PedidoPersonalizadoController.obtenerNombreTamanioPorId(Double.parseDouble(pedidoPer.getTamanio()));
+
             modelo.addRow(new Object[]{
-                pedidoPer.getIdPedido(), // <-- CORREGIDO: Usar getIdPedido()
+                pedidoPer.getIdPedido(),
                 pedidoPer.getTipoPan(),
                 pedidoPer.getSabor(),
                 pedidoPer.getCubierta(),
                 pedidoPer.getForma(),
-                pedidoPer.getTamanio(),
+                nombreTamanio,
                 pedidoPer.getDecoracion(),
                 pedidoPer.getOcasion(),
-                // ELIMINADO: No hay getEstado() en el modelo ni en la BD
+                pedidoPer.getIngredientes(), // Agregado el campo ingredientes
+                pedidoPer.getEstado(), // Agregado el campo estado
                 nombreCliente
             });
         }
     }
 
-    // Lógica para guardar o actualizar pedidos personalizados desde la tabla
     public void guardar() {
         if (tblpedidoper.isEditing()) {
             tblpedidoper.getCellEditor().stopCellEditing();
@@ -289,27 +295,25 @@ public class FrmPedidoPer extends javax.swing.JFrame {
             try {
                 Object idValue = modeloTabla.getValueAt(i, 0);
                 int idPedidoPer = (idValue != null && idValue.toString().matches("\\d+")) ? Integer.parseInt(idValue.toString()) : 0;
-
                 String tipoPan = (modeloTabla.getValueAt(i, 1) != null) ? modeloTabla.getValueAt(i, 1).toString() : "";
                 String sabor = (modeloTabla.getValueAt(i, 2) != null) ? modeloTabla.getValueAt(i, 2).toString() : "";
                 String cubierta = (modeloTabla.getValueAt(i, 3) != null) ? modeloTabla.getValueAt(i, 3).toString() : "";
                 String forma = (modeloTabla.getValueAt(i, 4) != null) ? modeloTabla.getValueAt(i, 4).toString() : "";
-                String tamano = (modeloTabla.getValueAt(i, 5) != null) ? modeloTabla.getValueAt(i, 5).toString() : "";
+                String tamanio = (modeloTabla.getValueAt(i, 5) != null) ? modeloTabla.getValueAt(i, 5).toString() : "";
                 String decoracion = (modeloTabla.getValueAt(i, 6) != null) ? modeloTabla.getValueAt(i, 6).toString() : "";
                 String ocasion = (modeloTabla.getValueAt(i, 7) != null) ? modeloTabla.getValueAt(i, 7).toString() : "";
-                // ELIMINADO: No existe la columna de estado en la base de datos
-                String cliente = (modeloTabla.getValueAt(i, 8) != null) ? modeloTabla.getValueAt(i, 8).toString() : ""; // <-- CORREGIDO: Cliente ahora está en el índice 8
+                String ingredientes = (modeloTabla.getValueAt(i, 8) != null) ? modeloTabla.getValueAt(i, 8).toString() : "";
+                String estado = (modeloTabla.getValueAt(i, 9) != null) ? modeloTabla.getValueAt(i, 9).toString() : "";
+                String cliente = (modeloTabla.getValueAt(i, 10) != null) ? modeloTabla.getValueAt(i, 10).toString() : "";
 
                 int idCliente = PedidoPersonalizadoController.obtenerIdClientePorNombre(cliente);
-                // CORREGIDO: El constructor ahora solo tiene 9 argumentos.
-                PedidoPersonalizadoModel pedidoPer = new PedidoPersonalizadoModel(idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamano, decoracion, ""); // <-- Se eliminan los campos extras
+
+                PedidoPersonalizadoModel pedidoPer = new PedidoPersonalizadoModel(idPedidoPer, idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado);
 
                 if (idPedidoPer <= 0) {
                     PedidoPersonalizadoController.guardarPedido(pedidoPer);
                 } else {
-                    // CORREGIDO: Se usa el constructor de 10 argumentos para modificar
-                    PedidoPersonalizadoModel pedidoModificado = new PedidoPersonalizadoModel(idPedidoPer, idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamano, decoracion, "");
-                    PedidoPersonalizadoController.modificarPedido(pedidoModificado);
+                    PedidoPersonalizadoController.modificarPedido(pedidoPer);
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error al procesar la fila de pedido personalizado " + (i + 1) + ": " + ex.getMessage());
@@ -319,7 +323,6 @@ public class FrmPedidoPer extends javax.swing.JFrame {
         cargarTablaPedidosPersonalizados();
     }
 
-    // Lógica para modificar un pedido personalizado seleccionado
     public void modificar() {
         int filaSeleccionada = tblpedidoper.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -332,15 +335,16 @@ public class FrmPedidoPer extends javax.swing.JFrame {
                 String sabor = (String) tblpedidoper.getValueAt(filaSeleccionada, 2);
                 String cubierta = (String) tblpedidoper.getValueAt(filaSeleccionada, 3);
                 String forma = (String) tblpedidoper.getValueAt(filaSeleccionada, 4);
-                String tamano = (String) tblpedidoper.getValueAt(filaSeleccionada, 5);
+                String tamanio = (String) tblpedidoper.getValueAt(filaSeleccionada, 5);
                 String decoracion = (String) tblpedidoper.getValueAt(filaSeleccionada, 6);
                 String ocasion = (String) tblpedidoper.getValueAt(filaSeleccionada, 7);
-                // ELIMINADO: No existe la columna de estado en la base de datos
-                String cliente = (String) tblpedidoper.getValueAt(filaSeleccionada, 8); // <-- CORREGIDO: Cliente ahora está en el índice 8
+                String ingredientes = (String) tblpedidoper.getValueAt(filaSeleccionada, 8);
+                String estado = (String) tblpedidoper.getValueAt(filaSeleccionada, 9);
+                String cliente = (String) tblpedidoper.getValueAt(filaSeleccionada, 10);
 
                 int idCliente = PedidoPersonalizadoController.obtenerIdClientePorNombre(cliente);
-                // CORREGIDO: Se usa el constructor de 10 argumentos para modificar
-                PedidoPersonalizadoModel pedidoPerModificado = new PedidoPersonalizadoModel(idPedidoPer, idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamano, decoracion, ""); // Se eliminan los campos extra
+
+                PedidoPersonalizadoModel pedidoPerModificado = new PedidoPersonalizadoModel(idPedidoPer, idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado);
 
                 if (PedidoPersonalizadoController.modificarPedido(pedidoPerModificado)) {
                     JOptionPane.showMessageDialog(this, "Pedido personalizado modificado exitosamente.");
@@ -356,7 +360,6 @@ public class FrmPedidoPer extends javax.swing.JFrame {
         }
     }
 
-    // Lógica para buscar pedidos personalizados
     public void buscar() {
         String termino = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
         if (termino != null && !termino.trim().isEmpty()) {
@@ -364,17 +367,29 @@ public class FrmPedidoPer extends javax.swing.JFrame {
             DefaultTableModel modeloTabla = (DefaultTableModel) tblpedidoper.getModel();
             modeloTabla.setRowCount(0);
             for (PedidoPersonalizadoModel pedidoPer : resultados) {
+                // CORRECCIÓN: Llama al método desde la clase ClientesController
+                String nombreCliente = ClientesController.obtenerNombreClientePorId(pedidoPer.getIdCliente());
+
+                String nombreTamanio;
+                // Maneja el caso en que el campo tamanio no sea un número válido
+                try {
+                    nombreTamanio = PedidoPersonalizadoController.obtenerNombreTamanioPorId(Double.parseDouble(pedidoPer.getTamanio()));
+                } catch (NumberFormatException e) {
+                    nombreTamanio = pedidoPer.getTamanio();
+                }
+
                 modeloTabla.addRow(new Object[]{
-                    pedidoPer.getIdPedido(), // <-- CORREGIDO: Usar getIdPedido()
+                    pedidoPer.getIdPedido(),
                     pedidoPer.getTipoPan(),
                     pedidoPer.getSabor(),
                     pedidoPer.getCubierta(),
                     pedidoPer.getForma(),
-                    pedidoPer.getTamanio(),
+                    nombreTamanio,
                     pedidoPer.getDecoracion(),
                     pedidoPer.getOcasion(),
-                    // ELIMINADO: No hay getEstado()
-                    PedidoPersonalizadoController.obtenerNombreClientePorId(pedidoPer.getIdCliente())
+                    pedidoPer.getIngredientes(), // Campo agregado
+                    pedidoPer.getEstado(), // Campo agregado
+                    nombreCliente
                 });
             }
         } else {
@@ -382,7 +397,6 @@ public class FrmPedidoPer extends javax.swing.JFrame {
         }
     }
 
-    // Lógica para eliminar un pedido personalizado seleccionado
     public void eliminar() {
         int filaSeleccionada = tblpedidoper.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -403,7 +417,6 @@ public class FrmPedidoPer extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
         }
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras1;

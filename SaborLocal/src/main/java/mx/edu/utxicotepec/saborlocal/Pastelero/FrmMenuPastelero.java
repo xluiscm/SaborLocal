@@ -9,9 +9,12 @@ import mx.edu.utxicotepec.saborlocal.Pastelero.FrmPedidos;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.SwingUtilities;
+import mx.edu.utxicotepec.saborlocal.Logueo.FrmInicio;
+import mx.edu.utxicotepec.saborlocal.Logueo.FrmLogueo;
 
 /**
  *
@@ -44,6 +47,7 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
         btninventario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btntodo = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +106,14 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
             }
         });
 
+        btnCerrarSesion.setBackground(new java.awt.Color(166, 162, 152));
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\cierre.png")); // NOI18N
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,6 +136,10 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
                         .addGap(82, 82, 82)
                         .addComponent(btninventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(412, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(42, 42, 42))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +155,9 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
                     .addComponent(btntodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(129, 129, 129)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(595, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(86, 86, 86))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,6 +202,11 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
         frminve.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btninventarioActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+        cerrar();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,7 +269,28 @@ public class FrmMenuPastelero extends javax.swing.JFrame {
         }
     }
 
+    public void cerrar() {
+        // TODO add your handling code here:
+
+        // 1. Mostrar un mensaje de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas cerrar la sesión?",
+                "Confirmar Cierre de Sesión",
+                JOptionPane.YES_NO_OPTION);
+
+        // 2. Si el usuario confirma, procede
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Cierra la ventana actual (la del vendedor)
+            this.dispose();
+
+            // Muestra la ventana de inicio de sesión
+            FrmInicio login = new FrmInicio();
+            login.setVisible(true);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btninventario;
     private javax.swing.JButton btnpedidos;

@@ -315,8 +315,14 @@ public class FrmClientes extends javax.swing.JFrame {
     }
 
     public void modificar() {
+        if (tblclientes.isEditing()) {
+            tblclientes.getCellEditor().stopCellEditing();
+        }
         int fila = tblclientes.getSelectedRow();
         if (fila != -1) {
+            if (tblclientes.isEditing()) {
+                tblclientes.getCellEditor().stopCellEditing();
+            }
             try {
                 int idCliente = (int) modeloTabla.getValueAt(fila, 0);
                 String nombre = modeloTabla.getValueAt(fila, 1).toString();
@@ -355,6 +361,12 @@ public class FrmClientes extends javax.swing.JFrame {
     }
 
     public void guardar() {
+        if (tblclientes.isEditing()) {
+            tblclientes.getCellEditor().stopCellEditing();
+        }
+        if (tblclientes.isEditing()) {
+            tblclientes.getCellEditor().stopCellEditing();
+        }
         for (int i = 0; i < modeloTabla.getRowCount(); i++) {
             try {
                 int idCliente = (int) modeloTabla.getValueAt(i, 0);
