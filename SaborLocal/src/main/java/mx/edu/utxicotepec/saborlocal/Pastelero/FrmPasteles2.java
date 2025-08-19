@@ -32,7 +32,6 @@ public class FrmPasteles2 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnatras = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -56,10 +55,11 @@ public class FrmPasteles2 extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btntodo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(147, 215, 164));
         jPanel1.setPreferredSize(new java.awt.Dimension(1440, 1024));
 
         btnatras.setBackground(new java.awt.Color(255, 255, 255));
@@ -70,9 +70,6 @@ public class FrmPasteles2 extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 80.png")); // NOI18N
-
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -82,14 +79,14 @@ public class FrmPasteles2 extends javax.swing.JFrame {
         jLabel6.setBackground(new java.awt.Color(217, 217, 217));
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 161 (1).png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\pa5.png")); // NOI18N
         jLabel6.setOpaque(true);
         jLabel6.setPreferredSize(new java.awt.Dimension(260, 190));
 
         jLabel11.setBackground(new java.awt.Color(217, 217, 217));
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 162 (1).png")); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\pa6.png")); // NOI18N
         jLabel11.setText("Napolitano");
         jLabel11.setOpaque(true);
         jLabel11.setPreferredSize(new java.awt.Dimension(260, 190));
@@ -97,7 +94,7 @@ public class FrmPasteles2 extends javax.swing.JFrame {
         jLabel12.setBackground(new java.awt.Color(217, 217, 217));
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 163 (2).png")); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\pa7.png")); // NOI18N
         jLabel12.setText("Pastel de chocolate");
         jLabel12.setOpaque(true);
         jLabel12.setPreferredSize(new java.awt.Dimension(260, 190));
@@ -105,7 +102,7 @@ public class FrmPasteles2 extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(217, 217, 217));
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 164.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\pa8.png")); // NOI18N
         jLabel7.setOpaque(true);
         jLabel7.setPreferredSize(new java.awt.Dimension(260, 190));
 
@@ -118,28 +115,28 @@ public class FrmPasteles2 extends javax.swing.JFrame {
         jLabel13.setBackground(new java.awt.Color(255, 255, 255));
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Rectangle 51.png")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\re2.png")); // NOI18N
         jLabel13.setText("Pastel de chocolate");
         jLabel13.setPreferredSize(new java.awt.Dimension(260, 190));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Rectangle 51.png")); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\re1.png")); // NOI18N
         jLabel14.setText("Pastel de chocolate");
         jLabel14.setPreferredSize(new java.awt.Dimension(260, 190));
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Rectangle 51.png")); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\re4.png")); // NOI18N
         jLabel15.setText("Pastel de chocolate");
         jLabel15.setPreferredSize(new java.awt.Dimension(260, 190));
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Rectangle 51.png")); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\re3.png")); // NOI18N
         jLabel16.setText("Pastel de chocolate");
         jLabel16.setPreferredSize(new java.awt.Dimension(260, 190));
 
@@ -217,6 +214,17 @@ public class FrmPasteles2 extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 42.png")); // NOI18N
 
+        btntodo.setBackground(new java.awt.Color(85, 204, 119));
+        btntodo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btntodo.setForeground(new java.awt.Color(0, 0, 0));
+        btntodo.setText("Todo");
+        btntodo.setPreferredSize(new java.awt.Dimension(100, 25));
+        btntodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntodoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -224,6 +232,9 @@ public class FrmPasteles2 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btntodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -268,7 +279,6 @@ public class FrmPasteles2 extends javax.swing.JFrame {
                         .addGap(217, 217, 217))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(btnatras)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -294,9 +304,9 @@ public class FrmPasteles2 extends javax.swing.JFrame {
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnatras)
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel1)
                         .addGap(18, 18, 18)
+                        .addComponent(btntodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,6 +370,10 @@ public class FrmPasteles2 extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnatrasActionPerformed
 
+    private void btntodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntodoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btntodoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -387,7 +401,7 @@ public class FrmPasteles2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btntodo;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

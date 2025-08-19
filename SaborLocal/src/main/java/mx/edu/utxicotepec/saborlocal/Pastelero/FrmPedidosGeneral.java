@@ -59,9 +59,10 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 240, 217));
+        jPanel1.setBackground(new java.awt.Color(147, 215, 164));
         jPanel1.setPreferredSize(new java.awt.Dimension(1440, 1024));
 
+        jLabel1.setBackground(new java.awt.Color(85, 204, 119));
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\pedido.png")); // NOI18N
 
         tblpedido.setBackground(new java.awt.Color(255, 255, 255));
@@ -119,7 +120,7 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(185, 157, 179));
+        jPanel3.setBackground(new java.awt.Color(85, 204, 119));
         jPanel3.setForeground(new java.awt.Color(185, 157, 179));
         jPanel3.setPreferredSize(new java.awt.Dimension(1440, 100));
 
@@ -128,7 +129,7 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Pedidos");
 
-        btnatras1.setBackground(new java.awt.Color(185, 157, 179));
+        btnatras1.setBackground(new java.awt.Color(85, 204, 119));
         btnatras1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnatras1.setForeground(new java.awt.Color(255, 240, 217));
         btnatras1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Arrow 2.png")); // NOI18N
@@ -139,7 +140,7 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
             }
         });
 
-        btnsiguiente2.setBackground(new java.awt.Color(185, 157, 179));
+        btnsiguiente2.setBackground(new java.awt.Color(85, 204, 119));
         btnsiguiente2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnsiguiente2.setForeground(new java.awt.Color(255, 240, 217));
         btnsiguiente2.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\arrow-open-end-svgrepo-com 1.png")); // NOI18N

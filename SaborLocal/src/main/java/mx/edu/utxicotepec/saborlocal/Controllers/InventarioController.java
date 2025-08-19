@@ -160,4 +160,34 @@ public class InventarioController {
             return false;
         }
     }
+
+    public static boolean actualizarCantidad(int idIngrediente, int nuevaCantidad) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        String sql = "UPDATE inventario SET cantidad = ? WHERE idIngrediente = ?";
+
+        try {
+            conn = Conexion.obtenerConexion();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, nuevaCantidad);
+            stmt.setInt(2, idIngrediente);
+
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la cantidad del inventario: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(System.err);
+            }
+        }
+    }
 }

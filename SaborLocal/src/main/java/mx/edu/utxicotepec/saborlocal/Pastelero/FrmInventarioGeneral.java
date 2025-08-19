@@ -55,9 +55,10 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(147, 215, 164));
         jPanel1.setPreferredSize(new java.awt.Dimension(1440, 1024));
 
+        jLabel1.setBackground(new java.awt.Color(85, 204, 119));
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Ineven.png")); // NOI18N
 
         btnatras.setBackground(new java.awt.Color(255, 255, 255));
@@ -167,9 +168,8 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
                                 .addComponent(btnatras))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
-                                .addComponent(jLabel1)
-                                .addGap(104, 104, 104)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE))
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -420,7 +420,6 @@ public class FrmInventarioGeneral extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras;
     private javax.swing.JButton btnbuscar;
-    private javax.swing.JButton btneliminar;
     private javax.swing.JButton btneliminar1;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnguardar1;

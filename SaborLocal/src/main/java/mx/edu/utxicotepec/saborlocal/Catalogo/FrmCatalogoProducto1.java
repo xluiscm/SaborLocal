@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package mx.edu.utxicotepec.saborlocal.Vendedor;
+package mx.edu.utxicotepec.saborlocal.Catalogo;
+
+import mx.edu.utxicotepec.saborlocal.Catalogo.FrmCatalogoGeneral;
 
 /**
  *
@@ -58,9 +60,9 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
         jLabel1.setText("Pastel de Queso con Zarzamora");
 
         jLabel2.setBackground(new java.awt.Color(255, 240, 217));
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("<html>   <p>     En Pasteleria D´Anita preparamos cada pastel con<br>     el toque especial que solo un verdadero pastelero puede dar.<br>     <br>     Imagina un cheesecake suave y cremoso, elaborado con el mejor<br>     queso doble crema, leche condensada y huevos frescos, realizado<br>     con un toque de vainilla natural y un ligero aroma a limón.<br>     Todo sobre una base doradita hecha con mantequilla y pan molido,<br>     horneada en su punto justo.<br>     Y para coronarlo: una cobertura de zarzamoras naturales cocinadas<br>     lentamente con azúcar, que te harán agua la boca!.   </p> </html>");
+        jLabel2.setText("<html><font face=\\\"Arial\\\" size=\\\"5\\\" color=\\\"#5C3B5C\\\">En Pastelería D'Anita traemos el irresistible Pastel Napolitano,<br>una delicia que combina tradición y sabor.<br><br>Capas esponjosas con el toque especial de mantequilla cremosa,<br>un ligero dulzor de leche condensada, la suavidad de la maicena,<br>la frescura de la vainilla y un detalle único de limón que despierta tus sentidos.<br>Horneado con dedicación y decorado con una capa ligera de azúcar glass y <br>crema batida, cada rebanada es perfecta para acompañar tus mejores momentos.</font></html>");
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 102));
         jPanel2.setPreferredSize(new java.awt.Dimension(175, 100));
@@ -182,7 +184,7 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
         jLabel12.setBackground(new java.awt.Color(255, 240, 217));
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("<html>   Calorías: 1,575 kcal<br>   Proteínas: 2 g<br>   Grasas: 1 g<br>   Carbohidratos: 15 g<br>   Fibra: 2,5 g<br> </html>");
+        jLabel12.setText("<html>     <font face=\"Dialog\" size=\"6\">         &bull; Calorías: 1,575 kcal<br>         &bull; Proteínas: 2 g<br>         &bull; Grasas: 1 g<br>         &bull; Carbohidratos: 15 g<br>         &bull; Fibra: 2,5 g     </font> </html>");
 
         btnatrascata.setBackground(new java.awt.Color(208, 204, 139));
         btnatrascata.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -195,7 +197,7 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\Group 162.png")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\pastel1.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,7 +214,7 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -225,10 +227,10 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))))
+                        .addGap(63, 63, 63))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,9 +241,9 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
                     .addComponent(btnatrascata))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,6 +256,7 @@ public class FrmCatalogoProducto1 extends javax.swing.JFrame {
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(171, 171, 171))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );

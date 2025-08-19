@@ -349,6 +349,7 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
     private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
         // TODO add your handling code here:
         //Boton de funcion para ir nuevamente a la pantalla del vendedor
+        guardarCambiosEnInventario();
         confirmar();
     }//GEN-LAST:event_btnconfirmarActionPerformed
 
@@ -410,16 +411,31 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
             return;
         }
 
-        // Aquí está la corrección: se llama a la clase InventarioController
-        // para obtener la cantidad disponible.
-        int cantidadDisponible = InventarioController.obtenerCantidad(ingredienteSeleccionado);
+        // Busca la fila del ingrediente seleccionado en la tabla
+        int filaSeleccionada = -1;
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            if (modeloTabla.getValueAt(i, 1).equals(ingredienteSeleccionado)) {
+                filaSeleccionada = i;
+                break;
+            }
+        }
 
-        if (cantidadDeseada <= cantidadDisponible) {
-            modeloLista.addElement(ingredienteSeleccionado + " - " + cantidadDeseada);
-            JOptionPane.showMessageDialog(null, "Ingrediente agregado al pastel.");
-            txtcantidad.setText("");
+        if (filaSeleccionada != -1) {
+            int cantidadDisponible = (int) modeloTabla.getValueAt(filaSeleccionada, 3);
+            if (cantidadDeseada <= cantidadDisponible) {
+                // Actualiza la cantidad en el modelo de la tabla visualmente
+                int nuevaCantidad = cantidadDisponible - cantidadDeseada;
+                modeloTabla.setValueAt(nuevaCantidad, filaSeleccionada, 3);
+
+                // Agrega el ingrediente a la lista del pastel personalizado
+                modeloLista.addElement(ingredienteSeleccionado + " - " + cantidadDeseada);
+                JOptionPane.showMessageDialog(null, "Ingrediente agregado al pastel.");
+                txtcantidad.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay suficiente " + ingredienteSeleccionado + " en el inventario. Solo quedan " + cantidadDisponible + ".");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No hay suficiente " + ingredienteSeleccionado + " en el inventario. Solo quedan " + cantidadDisponible + ".");
+            JOptionPane.showMessageDialog(null, "El ingrediente seleccionado no se encontró en la tabla.");
         }
     }
 // Archivo: FrmPastelPersonalizado2.java
@@ -443,6 +459,18 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
         // 4. Muestra la ventana y cierra la actual
         pedidoVista.setVisible(true);
         this.dispose();
+    }
+
+    public void guardarCambiosEnInventario() {
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            try {
+                int idIngrediente = (int) modeloTabla.getValueAt(i, 0);
+                int cantidad = (int) modeloTabla.getValueAt(i, 3);
+                InventarioController.actualizarCantidad(idIngrediente, cantidad);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar el inventario: " + ex.getMessage());
+            }
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatras1;

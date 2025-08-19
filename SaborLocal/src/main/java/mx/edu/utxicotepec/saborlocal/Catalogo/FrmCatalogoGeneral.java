@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package mx.edu.utxicotepec.saborlocal.Vendedor;
+package mx.edu.utxicotepec.saborlocal.Catalogo;
 
-import mx.edu.utxicotepec.saborlocal.Vendedor.FrmCatalogoProducto1;
+import mx.edu.utxicotepec.saborlocal.Vendedor.FrmMenuVendedor;
 
 /**
  *
@@ -84,7 +84,7 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(245, 245, 220));
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("• Pastel queso con zarzamora");
+        jLabel4.setText("• Pastel Queso Con Zarzamora");
 
         jLabel5.setBackground(new java.awt.Color(245, 245, 220));
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -117,18 +117,33 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
         btnproducto2.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto2.setText("Ver Producto...");
         btnproducto2.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto2ActionPerformed(evt);
+            }
+        });
 
         btnproducto3.setBackground(new java.awt.Color(245, 245, 220));
         btnproducto3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         btnproducto3.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto3.setText("Ver Producto...");
         btnproducto3.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto3ActionPerformed(evt);
+            }
+        });
 
         btnproducto4.setBackground(new java.awt.Color(245, 245, 220));
         btnproducto4.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         btnproducto4.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto4.setText("Ver Producto...");
         btnproducto4.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto4ActionPerformed(evt);
+            }
+        });
 
         jLabel23.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\imagen (3).png")); // NOI18N
 
@@ -239,23 +254,38 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
         btnproducto6.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto6.setText("Ver Producto...");
         btnproducto6.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto6ActionPerformed(evt);
+            }
+        });
 
         btnproducto7.setBackground(new java.awt.Color(245, 245, 220));
         btnproducto7.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         btnproducto7.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto7.setText("Ver Producto...");
         btnproducto7.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto7ActionPerformed(evt);
+            }
+        });
 
         btnproducto5.setBackground(new java.awt.Color(245, 245, 220));
         btnproducto5.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         btnproducto5.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto5.setText("Ver Producto...");
         btnproducto5.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto5ActionPerformed(evt);
+            }
+        });
 
         jLabel18.setBackground(new java.awt.Color(245, 245, 220));
         jLabel18.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("• Chocolate con Vainilla");
+        jLabel18.setText("• Pastel de Vainilla");
 
         jLabel17.setBackground(new java.awt.Color(245, 245, 220));
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -265,7 +295,7 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
         jLabel19.setBackground(new java.awt.Color(245, 245, 220));
         jLabel19.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("• Pastel Mandara");
+        jLabel19.setText("• Pastel de Griego limon");
 
         jLabel16.setBackground(new java.awt.Color(245, 245, 220));
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -277,6 +307,11 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
         btnproducto8.setForeground(new java.awt.Color(0, 0, 0));
         btnproducto8.setText("Ver Producto...");
         btnproducto8.setPreferredSize(new java.awt.Dimension(110, 20));
+        btnproducto8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproducto8ActionPerformed(evt);
+            }
+        });
 
         jLabel24.setIcon(new javax.swing.ImageIcon("C:\\Users\\xidon\\Documents\\NetBeansProjects\\SaborLocal\\resources\\imgs\\imagen (4).png")); // NOI18N
 
@@ -311,7 +346,7 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel17)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,6 +512,55 @@ public class FrmCatalogoGeneral extends javax.swing.JFrame {
         frmvendedor.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnproducto1ActionPerformed
+
+    private void btnproducto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto2ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto2 frrr = new FrmCatalogoProducto2();
+        frrr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto2ActionPerformed
+
+    private void btnproducto5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto5ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto3 freeee = new FrmCatalogoProducto3();
+        freeee.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto5ActionPerformed
+
+    private void btnproducto8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto8ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto5 frrr = new FrmCatalogoProducto5();
+        frrr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto8ActionPerformed
+
+    private void btnproducto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto3ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto4 frmm = new FrmCatalogoProducto4();
+        frmm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto3ActionPerformed
+
+    private void btnproducto6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto6ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto7 frmm = new FrmCatalogoProducto7();
+        frmm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto6ActionPerformed
+
+    private void btnproducto4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto4ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto6 frmmm = new FrmCatalogoProducto6();
+        frmmm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto4ActionPerformed
+
+    private void btnproducto7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproducto7ActionPerformed
+        // TODO add your handling code here:
+        FrmCatalogoProducto8 frmmm = new FrmCatalogoProducto8();
+        frmmm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnproducto7ActionPerformed
 
     /**
      * @param args the command line arguments

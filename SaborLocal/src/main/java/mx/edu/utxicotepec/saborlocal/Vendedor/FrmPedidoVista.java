@@ -287,7 +287,9 @@ public class FrmPedidoVista extends javax.swing.JFrame {
 
     private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
         // TODO add your handling code here:
-
+        FrmMenuVendedor frrr = new FrmMenuVendedor();
+        frrr.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnconfirmarActionPerformed
 
     /**

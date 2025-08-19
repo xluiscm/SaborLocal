@@ -4,6 +4,7 @@
  */
 package mx.edu.utxicotepec.saborlocal.Vendedor;
 
+import mx.edu.utxicotepec.saborlocal.Catalogo.FrmCatalogoGeneral;
 import javax.swing.JOptionPane;
 import mx.edu.utxicotepec.saborlocal.Logueo.FrmInicio;
 import mx.edu.utxicotepec.saborlocal.Logueo.FrmLogueo;

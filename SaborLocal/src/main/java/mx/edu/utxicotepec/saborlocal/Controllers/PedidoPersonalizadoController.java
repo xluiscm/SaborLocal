@@ -57,6 +57,7 @@ public class PedidoPersonalizadoController {
     public static boolean guardarPedido(PedidoPersonalizadoModel pedido) {
         Connection conn = null;
         PreparedStatement stmt = null;
+        // ✅ Se agrega 'ingredientes' a la consulta SQL
         String sql = "INSERT INTO pedido_personalizado (IdCliente, ocasion, tipo_pan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
@@ -73,8 +74,9 @@ public class PedidoPersonalizadoController {
             stmt.setString(6, pedido.getForma());
             stmt.setDouble(7, tamanioNumerico);
             stmt.setString(8, pedido.getDecoracion());
+            // ✅ Se añade el parámetro de los ingredientes
             stmt.setString(9, pedido.getIngredientes());
-            stmt.setString(10, pedido.getEstado());
+            stmt.setString(10, "En espera"); // ✅ Se establece el estado por defecto
 
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;
@@ -142,7 +144,8 @@ public class PedidoPersonalizadoController {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM pedido_personalizado";
+        // Selecciona solo los campos que se usarán en la interfaz
+        String sql = "SELECT IdPedido, ocasion, tipo_pan, sabor, cubierta, forma, tamanio, decoracion, estado FROM pedido_personalizado";
 
         try {
             conn = Conexion.obtenerConexion();
@@ -152,7 +155,6 @@ public class PedidoPersonalizadoController {
             while (rs.next()) {
                 PedidoPersonalizadoModel pedido = new PedidoPersonalizadoModel();
                 pedido.setIdPedido(rs.getInt("IdPedido"));
-                pedido.setIdCliente(rs.getInt("IdCliente"));
                 pedido.setOcasion(rs.getString("ocasion"));
                 pedido.setTipoPan(rs.getString("tipo_pan"));
                 pedido.setSabor(rs.getString("sabor"));
@@ -160,8 +162,8 @@ public class PedidoPersonalizadoController {
                 pedido.setForma(rs.getString("forma"));
                 pedido.setTamanio(rs.getString("tamanio"));
                 pedido.setDecoracion(rs.getString("decoracion"));
-                pedido.setIngredientes(rs.getString("ingredientes"));
                 pedido.setEstado(rs.getString("estado"));
+                // Se elimina el campo "ingredientes" porque no se usa en la interfaz
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
