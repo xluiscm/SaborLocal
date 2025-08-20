@@ -239,7 +239,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Registro Pedido"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Registro De&lt;br&gt;Pedido&lt;/center&gt;&lt;/html&gt;"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 100]"/>
             </Property>
@@ -299,7 +299,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Formulario"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Formulario&lt;br&gt;Clientes&lt;/center&gt;&lt;/html&gt;"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 100]"/>
             </Property>

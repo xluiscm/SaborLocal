@@ -13,6 +13,7 @@ import mx.edu.utxicotepec.saborlocal.Model.PedidoModel;
 public class PedidoController {
 
     // ========== GUARDAR PEDIDO ==========
+    // ========== GUARDAR PEDIDO ==========
     public static boolean guardarPedido(PedidoModel ped) {
         double precioBase = obtenerPrecioPastelDesdeBD(ped.getPastelSeleccionado());
         double precioAdicional = obtenerPrecioAdicionalTamanioDesdeBD(ped.getTamanioSeleccionado());
@@ -52,18 +53,19 @@ public class PedidoController {
                 psDetalle.setInt(1, idPedido);
                 psDetalle.setInt(2, idPastel);
                 psDetalle.setInt(3, idTamanio);
-                psDetalle.setDouble(4, costoTotal);
+                psDetalle.setDouble(4, precioBase);
                 psDetalle.executeUpdate();
                 return true;
             } catch (SQLException ex) {
                 System.err.println("Error al insertar el detalle del pedido: " + ex.getMessage());
-                eliminarPedido(idPedido); // rollback manual
+                eliminarPedido(idPedido);
                 return false;
             }
         }
         return false;
     }
 
+    // ========== MODIFICAR PEDIDO ==========
     // ========== MODIFICAR PEDIDO ==========
     public static boolean modificarPedido(PedidoModel ped) {
         String sqlPedido = "UPDATE pedidos SET idCliente = ?, estado = ?, totalPedido = ?, mensaje = ?, fechaEntregaEstimada = ? WHERE idPedido = ?";
@@ -92,7 +94,7 @@ public class PedidoController {
             try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle)) {
                 psDetalle.setInt(1, idPastel);
                 psDetalle.setInt(2, idTamanio);
-                psDetalle.setDouble(3, costoTotal);
+                psDetalle.setDouble(3, precioBase);
                 psDetalle.setInt(4, ped.getIdPedido());
                 psDetalle.executeUpdate();
             }
@@ -139,7 +141,7 @@ public class PedidoController {
     // ========== BUSCAR PEDIDOS ==========
     public static List<PedidoModel> buscarPedidosPorTermino(String termino) {
         List<PedidoModel> listaPedidos = new ArrayList<>();
-        String sql = "SELECT pe.idPedido, p.nombre AS pastel, t.nombre AS tamanio, c.nombre AS cliente, " // <-- nombre cliente
+        String sql = "SELECT pe.idPedido, p.nombre AS pastel, t.nombre AS tamanio, c.nombre AS cliente, "
                 + "pe.totalPedido, pe.mensaje, pe.fechaEntregaEstimada, pe.estado "
                 + "FROM pedidos AS pe "
                 + "JOIN DetallePedido AS dp ON pe.idPedido = dp.idPedido "
@@ -160,8 +162,8 @@ public class PedidoController {
                             rs.getInt("idPedido"),
                             rs.getString("pastel"),
                             rs.getString("tamanio"),
-                            rs.getString("cliente"), // nombre cliente
-                            rs.getDouble("totalPedido"), // 🔹 faltaba este
+                            rs.getString("cliente"),
+                            rs.getDouble("totalPedido"),
                             rs.getString("mensaje"),
                             rs.getString("fechaEntregaEstimada"),
                             rs.getString("estado")

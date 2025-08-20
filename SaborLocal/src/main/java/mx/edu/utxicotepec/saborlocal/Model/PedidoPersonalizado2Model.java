@@ -4,6 +4,8 @@
  */
 package mx.edu.utxicotepec.saborlocal.Model;
 
+import mx.edu.utxicotepec.saborlocal.Controllers.PedidoPersonalizadoController;
+
 /**
  *
  * @author xidon
@@ -18,6 +20,15 @@ public class PedidoPersonalizado2Model {
     private String forma;
     private String decoracion;
     private String textoTamanio;
+    private String ingredientes;
+
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
 
     public String getClienteNombre() {
         return clienteNombre;
@@ -92,6 +103,31 @@ public class PedidoPersonalizado2Model {
         this.forma = forma;
         this.decoracion = decoracion;
         this.textoTamanio = textoTamanio;
+    }
+// Dentro de la clase PedidoPersonalizado2Model.java
+
+// Método para convertir este objeto a PedidoPersonalizadoModel
+    public PedidoPersonalizadoModel toPedidoPersonalizadoModel() {
+        PedidoPersonalizadoModel nuevoPedido = new PedidoPersonalizadoModel();
+
+        // Copia todos los atributos uno por uno
+        nuevoPedido.setOcasion(this.getOcasion());
+        nuevoPedido.setTipoPan(this.getTipoPan());
+        nuevoPedido.setSabor(this.getSabor());
+        nuevoPedido.setCubierta(this.getCubierta());
+        nuevoPedido.setForma(this.getForma());
+        nuevoPedido.setDecoracion(this.getDecoracion());
+        nuevoPedido.setTamanio(this.getTextoTamanio());
+        nuevoPedido.setIngredientes(this.getIngredientes());
+
+        // Para el IdCliente, necesitas un método en tu controlador para buscarlo por nombre
+        int idCliente = PedidoPersonalizadoController.obtenerIdClientePorNombre(this.getClienteNombre());
+        nuevoPedido.setIdCliente(idCliente);
+
+        // Aquí puedes agregar otros atributos si los tienes, como precio, fecha, etc.
+        // nuevoPedido.setPrecio(this.getPrecio());
+        // nuevoPedido.setFechaEntrega(this.getFechaEntrega());
+        return nuevoPedido;
     }
 
     public PedidoPersonalizado2Model() {

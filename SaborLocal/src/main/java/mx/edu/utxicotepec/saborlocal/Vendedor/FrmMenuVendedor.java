@@ -72,7 +72,7 @@ public class FrmMenuVendedor extends javax.swing.JFrame {
         btnregistro.setBackground(new java.awt.Color(255, 204, 204));
         btnregistro.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         btnregistro.setForeground(new java.awt.Color(0, 0, 0));
-        btnregistro.setText("Registro Pedido");
+        btnregistro.setText("<html><center>Registro De<br>Pedido</center></html>");
         btnregistro.setPreferredSize(new java.awt.Dimension(300, 100));
         btnregistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +105,7 @@ public class FrmMenuVendedor extends javax.swing.JFrame {
         btnformulario.setBackground(new java.awt.Color(255, 204, 204));
         btnformulario.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         btnformulario.setForeground(new java.awt.Color(0, 0, 0));
-        btnformulario.setText("Formulario");
+        btnformulario.setText("<html><center>Formulario<br>Clientes</center></html>");
         btnformulario.setPreferredSize(new java.awt.Dimension(300, 100));
         btnformulario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

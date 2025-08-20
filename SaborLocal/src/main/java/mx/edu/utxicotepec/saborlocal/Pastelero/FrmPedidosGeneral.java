@@ -336,7 +336,7 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
                         idPedido,
                         pastel,
                         tamano,
-                        cliente, // aquí nombreCliente
+                        cliente, // ✅ usamos nombreCliente directo
                         costo,
                         mensaje,
                         fechaEntrega,
@@ -356,7 +356,7 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
         cargarTablaPedidos();
     }
 
-// Lógica para modificar un pedido normal seleccionado
+    /// Lógica para modificar un pedido normal seleccionado
     public void modificar() {
         int filaSeleccionada = tblpedido.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -364,33 +364,60 @@ public class FrmPedidosGeneral extends javax.swing.JFrame {
                 tblpedido.getCellEditor().stopCellEditing();
             }
             try {
+                // 1. Obtener los datos de la fila seleccionada en la tabla
                 int idPedido = (int) tblpedido.getValueAt(filaSeleccionada, 0);
                 String pastel = (String) tblpedido.getValueAt(filaSeleccionada, 1);
                 String tamano = (String) tblpedido.getValueAt(filaSeleccionada, 2);
-                String cliente = (String) tblpedido.getValueAt(filaSeleccionada, 3);
-                double costo = (double) tblpedido.getValueAt(filaSeleccionada, 4);
+                String nombreCliente = (String) tblpedido.getValueAt(filaSeleccionada, 3);
+                double costo = Double.parseDouble(tblpedido.getValueAt(filaSeleccionada, 4).toString());
                 String mensaje = (String) tblpedido.getValueAt(filaSeleccionada, 5);
                 String fecha = (String) tblpedido.getValueAt(filaSeleccionada, 6);
                 String estado = (String) tblpedido.getValueAt(filaSeleccionada, 7);
 
+                // 2. Obtener el ID del cliente a partir de su nombre (la clave para resolver tu problema)
+                int idCliente = PedidoController.obtenerIdClientePorNombre(nombreCliente);
+
+                // 3. Verificar que el ID del cliente sea válido antes de continuar
+                if (idCliente == -1) {
+                    JOptionPane.showMessageDialog(this, "Error: El cliente '" + nombreCliente + "' no existe en la base de datos.");
+                    return;
+                }
+
+                // 4. Crear el PedidoModel usando el constructor completo con los parámetros en el orden correcto
+                // Los campos "fechaPedido" y "fechaEntregaEstimada" necesitan ser definidos.
+                // Para la modificación, la "fechaPedido" puede ser la misma de la base de datos, 
+                // pero para este ejemplo, usaremos la fecha actual y la fecha de entrega de la tabla.
+                // Obtener fecha actual para el campo fechaPedido
+                java.util.Date fechaHoy = new java.util.Date();
+                java.text.SimpleDateFormat formatoFecha = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                String fechaPedidoActual = formatoFecha.format(fechaHoy);
+
+                // ✅ Usa el CONSTRUCTOR 2 de PedidoModel
                 PedidoModel pedidoModificado = new PedidoModel(
                         idPedido,
-                        pastel,
-                        tamano,
-                        cliente, // nombreCliente
+                        idCliente,
+                        nombreCliente,
+                        fechaPedidoActual, // Puedes usar la fecha actual para la modificación
+                        estado,
                         costo,
                         mensaje,
-                        fecha,
-                        estado
+                        fecha, // fechaEntregaEstimada
+                        pastel, // pastelSeleccionado
+                        tamano // tamanioSeleccionado
                 );
 
+                // 5. Llamar al método de modificación en el controlador
                 if (PedidoController.modificarPedido(pedidoModificado)) {
-                    JOptionPane.showMessageDialog(this, "Pedido normal modificado exitosamente.");
+                    JOptionPane.showMessageDialog(this, "Pedido modificado exitosamente.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al modificar el pedido normal.");
+                    JOptionPane.showMessageDialog(this, "Error al modificar el pedido. Verifique los datos.");
                 }
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error de formato de número. Asegúrese de que el costo es un valor numérico válido.");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error. Asegúrese de que los datos del pedido normal son correctos.");
+                JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado. Asegúrese de que los datos son correctos.");
+                System.err.println("Error en FrmPedidos.modificar(): " + ex.getMessage());
             }
             cargarTablaPedidos();
         } else {

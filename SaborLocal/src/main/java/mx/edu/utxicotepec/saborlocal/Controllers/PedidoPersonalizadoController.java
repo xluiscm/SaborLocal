@@ -139,13 +139,15 @@ public class PedidoPersonalizadoController {
         }
     }
 
+    // Método corregido
     public static List<PedidoPersonalizadoModel> mostrarPedidos() {
         List<PedidoPersonalizadoModel> pedidos = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        // Selecciona solo los campos que se usarán en la interfaz
-        String sql = "SELECT IdPedido, ocasion, tipo_pan, sabor, cubierta, forma, tamanio, decoracion, estado FROM pedido_personalizado";
+
+        // ✅ La consulta SQL debe seleccionar todas las columnas, incluido IdCliente.
+        String sql = "SELECT IdPedido, IdCliente, ocasion, tipo_pan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado FROM pedido_personalizado";
 
         try {
             conn = Conexion.obtenerConexion();
@@ -155,6 +157,8 @@ public class PedidoPersonalizadoController {
             while (rs.next()) {
                 PedidoPersonalizadoModel pedido = new PedidoPersonalizadoModel();
                 pedido.setIdPedido(rs.getInt("IdPedido"));
+                // ✅ Asignar el IdCliente al modelo
+                pedido.setIdCliente(rs.getInt("IdCliente"));
                 pedido.setOcasion(rs.getString("ocasion"));
                 pedido.setTipoPan(rs.getString("tipo_pan"));
                 pedido.setSabor(rs.getString("sabor"));
@@ -162,8 +166,9 @@ public class PedidoPersonalizadoController {
                 pedido.setForma(rs.getString("forma"));
                 pedido.setTamanio(rs.getString("tamanio"));
                 pedido.setDecoracion(rs.getString("decoracion"));
+                pedido.setIngredientes(rs.getString("ingredientes"));
                 pedido.setEstado(rs.getString("estado"));
-                // Se elimina el campo "ingredientes" porque no se usa en la interfaz
+
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
@@ -330,6 +335,7 @@ public class PedidoPersonalizadoController {
                 System.err.println("Error al cerrar la conexión: " + e.getMessage());
             }
         }
-        return 0;
+        return -1;
     }
-}
+} // Fin de la clase PedidoPersonalizadoController
+

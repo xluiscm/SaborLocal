@@ -71,6 +71,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         combotipo.setBackground(new java.awt.Color(255, 255, 255));
         combotipo.setEditable(true);
+        combotipo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         combotipo.setForeground(new java.awt.Color(0, 0, 0));
         combotipo.setPreferredSize(new java.awt.Dimension(180, 50));
 
@@ -81,6 +82,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         comboforma.setBackground(new java.awt.Color(255, 255, 255));
         comboforma.setEditable(true);
+        comboforma.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         comboforma.setForeground(new java.awt.Color(0, 0, 0));
         comboforma.setPreferredSize(new java.awt.Dimension(180, 100));
 
@@ -91,6 +93,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         combosabor.setBackground(new java.awt.Color(255, 255, 255));
         combosabor.setEditable(true);
+        combosabor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         combosabor.setForeground(new java.awt.Color(0, 0, 0));
         combosabor.setPreferredSize(new java.awt.Dimension(180, 50));
 
@@ -101,6 +104,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         combotama.setBackground(new java.awt.Color(255, 255, 255));
         combotama.setEditable(true);
+        combotama.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         combotama.setForeground(new java.awt.Color(0, 0, 0));
         combotama.setPreferredSize(new java.awt.Dimension(180, 100));
 
@@ -116,11 +120,13 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         combodecora.setBackground(new java.awt.Color(255, 255, 255));
         combodecora.setEditable(true);
+        combodecora.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         combodecora.setForeground(new java.awt.Color(0, 0, 0));
         combodecora.setPreferredSize(new java.awt.Dimension(180, 100));
 
         combovubierta.setBackground(new java.awt.Color(255, 255, 255));
         combovubierta.setEditable(true);
+        combovubierta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         combovubierta.setForeground(new java.awt.Color(0, 0, 0));
         combovubierta.setPreferredSize(new java.awt.Dimension(180, 100));
 
@@ -181,6 +187,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         combocliente.setBackground(new java.awt.Color(255, 255, 255));
         combocliente.setEditable(true);
+        combocliente.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         combocliente.setForeground(new java.awt.Color(0, 0, 0));
         combocliente.setPreferredSize(new java.awt.Dimension(180, 100));
 
@@ -191,6 +198,7 @@ public class FrmPastelPersonalizado extends javax.swing.JFrame {
 
         comboocasion.setBackground(new java.awt.Color(255, 255, 255));
         comboocasion.setEditable(true);
+        comboocasion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         comboocasion.setForeground(new java.awt.Color(0, 0, 0));
         comboocasion.setPreferredSize(new java.awt.Dimension(180, 100));
 

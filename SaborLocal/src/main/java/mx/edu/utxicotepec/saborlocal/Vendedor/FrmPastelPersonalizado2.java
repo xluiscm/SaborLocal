@@ -9,8 +9,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.utxicotepec.saborlocal.Controllers.InventarioController;
+import mx.edu.utxicotepec.saborlocal.Controllers.PedidoPersonalizadoController;
 import mx.edu.utxicotepec.saborlocal.Model.InventarioModel;
 import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizado2Model;
+import mx.edu.utxicotepec.saborlocal.Model.PedidoPersonalizadoModel;
 
 /**
  *
@@ -439,26 +441,35 @@ public class FrmPastelPersonalizado2 extends javax.swing.JFrame {
         }
     }
 // Archivo: FrmPastelPersonalizado2.java
+// Dentro de la clase FrmPastelPersonalizado2.java
 
     public void confirmar() {
-        // 1. Recopila los datos de los ingredientes
         StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < modeloLista.getSize(); i++) {
             sb.append(modeloLista.getElementAt(i)).append("\n");
         }
+        // ... (Tu código para recopilar ingredientes y otros datos) ...
         String ingredientes = sb.toString();
 
-        // 2. Accede a los datos del modelo
-        String tipoPan = pedidoPersonalizado.getTipoPan();
-        String sabor = pedidoPersonalizado.getSabor();
-        String decoracion = pedidoPersonalizado.getDecoracion();
+        // 1. Completa el objeto de pedido con los datos de esta ventana
+        this.pedidoPersonalizado.setIngredientes(ingredientes);
 
-        // 3. Crea una instancia de FrmPedidoVista
-        FrmPedidoVista pedidoVista = new FrmPedidoVista(tipoPan, sabor, decoracion, ingredientes);
+        // 2. Realiza la conversión de modelo
+        PedidoPersonalizadoModel pedidoAGuardar = this.pedidoPersonalizado.toPedidoPersonalizadoModel();
 
-        // 4. Muestra la ventana y cierra la actual
-        pedidoVista.setVisible(true);
-        this.dispose();
+        // 3. Llama al método de guardado en el controlador con el objeto convertido
+        boolean guardadoExitoso = PedidoPersonalizadoController.guardarPedido(pedidoAGuardar);
+
+        if (guardadoExitoso) {
+            JOptionPane.showMessageDialog(this, "Pedido personalizado guardado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            guardarCambiosEnInventario();
+            FrmPedidoVista frmVendedor = new FrmPedidoVista();
+            frmVendedor.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar el pedido. Revisa los logs.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void guardarCambiosEnInventario() {

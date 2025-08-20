@@ -357,41 +357,62 @@ public class FrmPedidos extends javax.swing.JFrame {
                 tblpedido.getCellEditor().stopCellEditing();
             }
             try {
+                // Obtiene los datos de la fila de la tabla (esto está bien)
                 int idPedido = (int) tblpedido.getValueAt(filaSeleccionada, 0);
                 String pastel = (String) tblpedido.getValueAt(filaSeleccionada, 1);
                 String tamano = (String) tblpedido.getValueAt(filaSeleccionada, 2);
-                String cliente = (String) tblpedido.getValueAt(filaSeleccionada, 3);
+                String nombreCliente = (String) tblpedido.getValueAt(filaSeleccionada, 3);
                 double costo = Double.parseDouble(tblpedido.getValueAt(filaSeleccionada, 4).toString());
                 String mensaje = (String) tblpedido.getValueAt(filaSeleccionada, 5);
                 String fecha = (String) tblpedido.getValueAt(filaSeleccionada, 6);
                 String estado = (String) tblpedido.getValueAt(filaSeleccionada, 7);
 
+                // ✅ LÓGICA CORREGIDA: Obtiene el ID del cliente.
+                int idCliente = PedidoController.obtenerIdClientePorNombre(nombreCliente);
+
+                // ✅ VERIFICA SI EL ID ES VÁLIDO ANTES DE CONTINUAR
+                if (idCliente == -1) {
+                    // Si la función devuelve -1, significa que no encontró el cliente.
+                    JOptionPane.showMessageDialog(this, "Error: El cliente '" + nombreCliente + "' no existe en la base de datos. Por favor, corrija el nombre del cliente.");
+                    return; // Detiene la ejecución aquí para evitar el error de la base de datos.
+                }
+
+                // El resto del código solo se ejecuta si el ID del cliente es válido
+                java.util.Date fechaHoy = new java.util.Date();
+                java.text.SimpleDateFormat formatoFecha = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                String fechaPedidoActual = formatoFecha.format(fechaHoy);
+
                 PedidoModel pedidoModificado = new PedidoModel(
                         idPedido,
-                        pastel,
-                        tamano,
-                        cliente, // ✅ usamos nombreCliente directo
+                        idCliente, // Este ID ya fue verificado
+                        nombreCliente,
+                        fechaPedidoActual,
+                        estado,
                         costo,
                         mensaje,
                         fecha,
-                        estado
+                        pastel,
+                        tamano
                 );
 
                 if (PedidoController.modificarPedido(pedidoModificado)) {
-                    JOptionPane.showMessageDialog(this, "Pedido normal modificado exitosamente.");
+                    JOptionPane.showMessageDialog(this, "Pedido modificado exitosamente.");
+                    cargarTablaPedidos();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al modificar el pedido normal.");
+                    JOptionPane.showMessageDialog(this, "Error al modificar el pedido. Verifique los datos.");
                 }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error de formato de número. Asegúrese de que el costo es un valor numérico válido.");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error. Asegúrese de que los datos del pedido normal son correctos.");
+                JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado. Asegúrese de que los datos son correctos.");
+                System.err.println("Error en FrmPedidos.modificar(): " + ex.getMessage());
+                ex.printStackTrace();
             }
-            cargarTablaPedidos();
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para modificar.");
         }
     }
 
-// Lógica para buscar pedidos normales
     public void buscar() {
         String termino = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
         if (termino != null && !termino.trim().isEmpty()) {
@@ -403,7 +424,7 @@ public class FrmPedidos extends javax.swing.JFrame {
                     pedido.getIdPedido(),
                     pedido.getPastelSeleccionado(),
                     pedido.getTamanioSeleccionado(),
-                    pedido.getNombreCliente(), // ✅ directo
+                    pedido.getNombreCliente(),
                     pedido.getTotalPedido(),
                     pedido.getMensaje(),
                     pedido.getFechaEntregaEstimada(),
@@ -424,14 +445,15 @@ public class FrmPedidos extends javax.swing.JFrame {
                 try {
                     int idPedido = (int) tblpedido.getValueAt(filaSeleccionada, 0);
                     if (PedidoController.eliminarPedido(idPedido)) {
-                        JOptionPane.showMessageDialog(this, "Pedido normal eliminado exitosamente.");
+                        JOptionPane.showMessageDialog(this, "Pedido eliminado exitosamente.");
                         cargarTablaPedidos();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Error al eliminar el pedido normal.");
+                        JOptionPane.showMessageDialog(this, "Error al eliminar el pedido.");
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error. No se pudo eliminar el pedido.");
-                    System.err.println("Error al eliminar pedido normal: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al eliminar el pedido.");
+                    System.err.println("Error en eliminar(): " + ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         } else {

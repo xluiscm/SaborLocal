@@ -107,16 +107,17 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
         );
 
         tblpedidoper.setBackground(new java.awt.Color(255, 255, 255));
+        tblpedidoper.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tblpedidoper.setForeground(new java.awt.Color(0, 0, 0));
         tblpedidoper.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "idPedidoPersonalizado", "Tipo de pan", "Sabor", "Cubierta", "Forma", "Tamaño", "Decoracion", "Ocasion", "Estado"
+                "idPedidoPersonalizado", "Tipo de pan", "Sabor", "Cubierta", "Forma", "Tamaño", "Decoracion", "Ocasion", "Ingredientes", "Estado", "Cliente"
             }
         ));
         jScrollPane2.setViewportView(tblpedidoper);
@@ -272,14 +273,39 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
     private void cargarTablaPedidosPersonalizados() {
         DefaultTableModel modelo = (DefaultTableModel) tblpedidoper.getModel();
         modelo.setRowCount(0);
+
         List<PedidoPersonalizadoModel> pedidosPer = PedidoPersonalizadoController.mostrarPedidos();
         for (PedidoPersonalizadoModel pedidoPer : pedidosPer) {
-            String nombreTamanio;
+            String nombreCliente = ClientesController.obtenerNombreClientePorId(pedidoPer.getIdCliente());
+
+            String tamanioDisplay = "";
             try {
-                nombreTamanio = PedidoPersonalizadoController.obtenerNombreTamanioPorId(Double.parseDouble(pedidoPer.getTamanio()));
+                double tamanioDouble = Double.parseDouble(pedidoPer.getTamanio());
+                if (tamanioDouble == 1.0) {
+                    tamanioDisplay = "Chico";
+                } else if (tamanioDouble == 2.0) {
+                    tamanioDisplay = "Mediano";
+                } else if (tamanioDouble == 3.0) {
+                    tamanioDisplay = "Grande";
+                } else {
+                    tamanioDisplay = pedidoPer.getTamanio();
+                }
             } catch (NumberFormatException e) {
-                nombreTamanio = pedidoPer.getTamanio();
+                tamanioDisplay = pedidoPer.getTamanio();
             }
+
+            String estadoDisplay = "";
+            if (pedidoPer.getEstado() != null) {
+                if (pedidoPer.getEstado().equals("0")) {
+                    estadoDisplay = "En espera";
+                } else if (pedidoPer.getEstado().equals("1")) {
+                    estadoDisplay = "Listo";
+                } else {
+                    estadoDisplay = pedidoPer.getEstado();
+                }
+            }
+
+            String ingredientesDisplay = (pedidoPer.getIngredientes() != null) ? pedidoPer.getIngredientes() : "N/A";
 
             modelo.addRow(new Object[]{
                 pedidoPer.getIdPedido(),
@@ -287,10 +313,12 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
                 pedidoPer.getSabor(),
                 pedidoPer.getCubierta(),
                 pedidoPer.getForma(),
-                nombreTamanio,
+                tamanioDisplay,
                 pedidoPer.getDecoracion(),
                 pedidoPer.getOcasion(),
-                pedidoPer.getEstado() // Se muestra el campo 'Estado' al final
+                ingredientesDisplay,
+                estadoDisplay,
+                nombreCliente
             });
         }
     }
@@ -314,9 +342,14 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
                 String ocasion = (modeloTabla.getValueAt(i, 7) != null) ? modeloTabla.getValueAt(i, 7).toString() : "";
                 String ingredientes = (modeloTabla.getValueAt(i, 8) != null) ? modeloTabla.getValueAt(i, 8).toString() : "";
                 String estado = (modeloTabla.getValueAt(i, 9) != null) ? modeloTabla.getValueAt(i, 9).toString() : "";
-                String cliente = (modeloTabla.getValueAt(i, 10) != null) ? modeloTabla.getValueAt(i, 10).toString() : "";
+                String clienteNombre = (modeloTabla.getValueAt(i, 10) != null) ? modeloTabla.getValueAt(i, 10).toString() : "";
 
-                int idCliente = PedidoPersonalizadoController.obtenerIdClientePorNombre(cliente);
+                // ✅ LÓGICA CORREGIDA: Usa el método correcto de ClientesController
+                int idCliente = ClientesController.obtenerIdClientePorNombreCompleto(clienteNombre);
+                if (idCliente == -1) {
+                    JOptionPane.showMessageDialog(this, "Error en la fila " + (i + 1) + ": El cliente '" + clienteNombre + "' no existe en la base de datos.");
+                    continue; // En lugar de `throw`, `continue` es mejor para procesar las demás filas.
+                }
 
                 PedidoPersonalizadoModel pedidoPer = new PedidoPersonalizadoModel(idPedidoPer, idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado);
 
@@ -333,6 +366,9 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
         cargarTablaPedidosPersonalizados();
     }
 
+    //-----------------------------------------------------
+    // Correcciones para el método modificar()
+    //-----------------------------------------------------
     public void modificar() {
         int filaSeleccionada = tblpedidoper.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -350,9 +386,14 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
                 String ocasion = (String) tblpedidoper.getValueAt(filaSeleccionada, 7);
                 String ingredientes = (String) tblpedidoper.getValueAt(filaSeleccionada, 8);
                 String estado = (String) tblpedidoper.getValueAt(filaSeleccionada, 9);
-                String cliente = (String) tblpedidoper.getValueAt(filaSeleccionada, 10);
+                String clienteNombre = (String) tblpedidoper.getValueAt(filaSeleccionada, 10);
 
-                int idCliente = PedidoPersonalizadoController.obtenerIdClientePorNombre(cliente);
+                // ✅ LÓGICA CORREGIDA: Usa el método correcto de ClientesController
+                int idCliente = ClientesController.obtenerIdClientePorNombreCompleto(clienteNombre);
+                if (idCliente == -1) {
+                    JOptionPane.showMessageDialog(this, "El cliente '" + clienteNombre + "' no existe en la base de datos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 PedidoPersonalizadoModel pedidoPerModificado = new PedidoPersonalizadoModel(idPedidoPer, idCliente, ocasion, tipoPan, sabor, cubierta, forma, tamanio, decoracion, ingredientes, estado);
 
@@ -362,7 +403,8 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error al modificar el pedido personalizado.");
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error. Asegúrese de que los datos del pedido personalizado son correctos.");
+                JOptionPane.showMessageDialog(this, "Error. Asegúrese de que los datos del pedido personalizado son correctos: " + ex.getMessage());
+                // logger.log... (para depuración)
             }
             cargarTablaPedidosPersonalizados();
         } else {
@@ -370,6 +412,9 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
         }
     }
 
+    //-----------------------------------------------------
+    // Correcciones para el método buscar()
+    //-----------------------------------------------------
     public void buscar() {
         String termino = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
         if (termino != null && !termino.trim().isEmpty()) {
@@ -378,12 +423,34 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
             modeloTabla.setRowCount(0);
             for (PedidoPersonalizadoModel pedidoPer : resultados) {
                 String nombreTamanio;
-                // Maneja el caso en que el campo tamanio no sea un número válido
                 try {
-                    nombreTamanio = PedidoPersonalizadoController.obtenerNombreTamanioPorId(Double.parseDouble(pedidoPer.getTamanio()));
+                    double tamanioDouble = Double.parseDouble(pedidoPer.getTamanio());
+                    if (tamanioDouble == 1.0) {
+                        nombreTamanio = "Chico";
+                    } else if (tamanioDouble == 2.0) {
+                        nombreTamanio = "Mediano";
+                    } else if (tamanioDouble == 3.0) {
+                        nombreTamanio = "Grande";
+                    } else {
+                        nombreTamanio = pedidoPer.getTamanio();
+                    }
                 } catch (NumberFormatException e) {
                     nombreTamanio = pedidoPer.getTamanio();
                 }
+
+                String estadoDisplay = "";
+                if (pedidoPer.getEstado() != null) {
+                    if (pedidoPer.getEstado().equals("0")) {
+                        estadoDisplay = "En espera";
+                    } else if (pedidoPer.getEstado().equals("1")) {
+                        estadoDisplay = "Listo";
+                    } else {
+                        estadoDisplay = pedidoPer.getEstado();
+                    }
+                }
+
+                String ingredientesDisplay = (pedidoPer.getIngredientes() != null) ? pedidoPer.getIngredientes() : "N/A";
+                String nombreCliente = ClientesController.obtenerNombreClientePorId(pedidoPer.getIdCliente());
 
                 modeloTabla.addRow(new Object[]{
                     pedidoPer.getIdPedido(),
@@ -394,9 +461,9 @@ public class FrmPedidoPer2 extends javax.swing.JFrame {
                     nombreTamanio,
                     pedidoPer.getDecoracion(),
                     pedidoPer.getOcasion(),
-                    // Se elimina el campo 'ingredientes'
-                    // Se elimina el campo 'cliente'
-                    pedidoPer.getEstado() // El estado se muestra en la novena columna
+                    ingredientesDisplay,
+                    estadoDisplay,
+                    nombreCliente
                 });
             }
         } else {
